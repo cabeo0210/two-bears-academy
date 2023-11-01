@@ -1,0 +1,86 @@
+﻿@using static EcommerceCore.Const.SysEnum;
+@model EcommerceCore.ViewModel.User.UserCrudModel
+
+@{
+    ViewData["Title"] = "Cập nhật tài khoản";
+}
+
+<form novalidate asp-action="Edit" enctype="multipart/form-data">
+    <div class="@SystemStyleCard.Card">
+        <div class="@SystemStyleCard.CardHeader bg-primary py-3">
+            <h4 class="mb-0">@ViewData["Title"]</h4>
+        </div>
+        <div class="@SystemStyleCard.CardBody">
+            <div class="@SystemStyleForm.ThemeForm">
+                <input asp-for="UserId" type="hidden" />
+
+                <div class="mb-3">
+                    <label>
+                        Email
+                    </label>
+                    <input class="form-control" type="text" readonly asp-for="Email" placeholder="Email" />
+                    <span asp-validation-for="Email" class="@SystemText.TextDanger"></span>
+                </div>
+
+
+                <div class="mb-3">
+                    <label>
+                        Tên
+                    </label>
+
+                    <input class="form-control" type="text" asp-for="Name" placeholder="Name" />
+                    <span asp-validation-for="Name" class="@SystemText.TextDanger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>Hình ảnh gốc</label>
+                    <div style="display:flex; justify-content: center; align-items:center;"><img src="~/@Model.Avatar" style="width: 40%; " /></div>
+                </div>
+                <div class="mb-3">
+                    <label>Hình ảnh</label>
+                    <input class="form-control" type="file" asp-for="FileImage" placeholder="Hình ảnh" />
+                    <span asp-validation-for="FileImage" class="@SystemText.TextDanger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>
+                        Giới tính
+                    </label>
+                    <select class="form-select" asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()">
+                        <option selected="selected" value="">Chọn giới tính</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+
+                    <label>
+                        Ngày sinh
+                    </label>
+                    <input class="form-control digits" asp-for="DateOfBirth" type="date">
+                </div>
+
+                <div class="mb-3">
+                    <label>
+                        Số điện thoại
+                    </label>
+                    <input class="form-control" asp-for="Phone" type="number" placeholder="Sđt">
+                    <span asp-validation-for="Phone" class="@SystemText.TextDanger"></span>
+
+                </div>
+
+                <div class="mb-3">
+                    <label>
+                        Mật khẩu
+                    </label>
+                    <input class="form-control" asp-for="Password" type="password" placeholder="Mật khẩu">
+                    <span asp-validation-for="Password" class="@SystemText.TextDanger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="@SystemStyleForm.ThemeFooter">
+            <button type="submit" class="btn btn-rounded btn-success">Lưu</button>
+            <a class="btn btn-rounded btn-danger" href="@Url.Action("Index")">Trở về</a>
+        </div>
+    </div>
+</form>
+@*@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}*@

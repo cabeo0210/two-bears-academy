@@ -1,0 +1,50 @@
+﻿@using static EcommerceCore.Const.SysEnum;
+@model EcommerceCore.ViewModel.User.UserCrudModel
+
+@{
+    ViewData["Title"] = "Xóa tài khoản";
+}
+
+<div class="@SystemStyleCard.Card">
+    <div class="@SystemStyleCard.CardHeader bg-primary py-3">
+        <h4 class="mb-0">@ViewData["Title"]</h4>
+    </div>
+    <div class="@SystemStyleCard.CardBody">
+        <h3>Bạn có chắc muốn xóa người dùng "@Model.Email"?</h3>
+        <input asp-for="UserId" type="hidden" />
+
+        <label>
+            Email
+        </label>
+        <input class="form-control" type="text" readonly asp-for="Email" />
+        <label>
+            Tên
+        </label>
+        <input class="form-control" type="text" readonly asp-for="Name" placeholder="Name" />
+        <label>
+            Giới tính
+        </label>
+        <select class="form-select" asp-for="Gender" readonly asp-items="Html.GetEnumSelectList<Gender>()">
+            <option selected="selected" value="">Chọn giới tính</option>
+        </select>
+        <label>
+            Ngày sinh
+        </label>
+        <input class="form-control digits" asp-for="DateOfBirth" readonly type="date">
+        <label>
+            Số điện thoại
+        </label>
+        <input class="form-control" asp-for="Phone" readonly type="number" placeholder="Sđt">
+        <label>
+            Mật khẩu
+        </label>
+        <input class="form-control" asp-for="Password" readonly type="password" placeholder="Mật khẩu">
+    </div>
+    <div class="@SystemStyleForm.ThemeFooter">
+        <a asp-action="DeleteUser" asp-route-id="@Model.UserId" class="btn btn-rounded btn-danger">Xóa</a>
+        <a class="btn btn-rounded btn-success" href="@Url.Action("Index")">Trở về</a>
+    </div>
+</div>
+@*@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}*@

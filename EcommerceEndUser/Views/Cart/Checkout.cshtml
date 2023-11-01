@@ -1,0 +1,92 @@
+﻿@using static EcommerceCore.Const.SysEnum
+@model EcommerceCore.ViewModel.User.UserViewModel;
+@{
+    ViewData["Title"] = "Checkout Page";
+    var settingConfig = ViewBag.SettingConfig;
+}
+<div class="container-fluid">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Checkout</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html" data-bs-original-title="" title="">Home</a></li>
+                    <li class="breadcrumb-item">ECommerce</li>
+                    <li class="breadcrumb-item active">Checkout</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header pb-0">
+            <h5>Billing Details</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-6 col-sm-12">
+                    <form>
+                        <div class="row">
+                            <div class="mb-3 col-sm-6">
+                                <label for="inputEmail4">First Name</label>
+                                <input class="form-control" asp-for="FirstName" readonly type="text">
+                            </div>
+                            <div class="mb-3 col-sm-6">
+                                <label for="inputPassword4">Last Name</label>
+                                <input class="form-control" asp-for="LastName" readonly type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-sm-6">
+                                <label for="inputEmail5">Phone</label>
+                                <input class="form-control" asp-for="Phone" type="text">
+                            </div>
+                            <div class="mb-3 col-sm-6">
+                                <label for="inputPassword7">Email Address</label>
+                                <input class="form-control" asp-for="Email" readonly type="email">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputAddress5">Address</label>
+                            <input class="form-control" asp-for="Address" readonly type="text">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xl-6 col-sm-12">
+                    <div class="checkout-details">
+                        <div class="order-box">
+                            <div class="title-box">
+                                <div class="checkbox-title">
+                                    <h4 class="mb-0">Product </h4>
+                                    <span>Total</span>
+                                </div>
+                            </div>
+                            @foreach (var cartItem in Model.Cart.CartItems)
+                            {
+                                <ul class="qty">
+                                    <li>
+                                        @cartItem.Product.Name
+                                        <span>@cartItem.Product.SellPrice.ConvertToVND()</span>
+                                    </li>
+                                </ul>
+                            }
+
+                            <ul class="sub-total total">
+                                <li>Total <span class="count">@Model.Cart.Total.ConvertToVND()</span></li>
+                            </ul>
+                            <div class="animate-chk">
+                                <div class="row">
+                                    @Html.Raw(@settingConfig)
+                                </div>
+                            </div>
+                            <div class="order-place">
+                                <a class="btn btn-primary" asp-action="SettleUp">Settle Up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

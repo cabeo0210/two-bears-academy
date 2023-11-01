@@ -1,0 +1,67 @@
+﻿@model EcommerceCore.ViewModel.Setting.SettingViewModel
+@{
+    ViewData["Title"] = "Cài đặt thanh toán";
+}
+    <div class="col-sm-12">
+                <div class="@SystemStyleCard.Card">
+                  <div class="@SystemStyleCard.CardHeader">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <div class="me-2">
+                            <h4 class="page-title mb-0">@ViewData["Title"]</h4>
+                        </div>
+                        <div>
+                            <a href="@Url.Action("Create")" class="btn btn-rounded btn-light" data-toggle="tooltip" title="Tạo mới danh mục">
+                               <i data-feather="plus"></i>
+                            </a>
+                        </div>
+                      </div>
+                 @*<textarea></textarea>*@
+                </div>
+
+                <div class="modal fade" id="modal-warning">
+        <div class="modal-dialog">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="warning-modal-title">Xác nhận</h4>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
+                </div>
+                <div class="modal-body" id="warning-modal-body">
+                    Bạn có chắc muốn xóa danh mục này
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="warning-modal-cancel" type="button" data-bs-dismiss="modal" data-bs-original-title="" title="">Đóng</button>
+                    <button class="btn btn-primary" id="warning-modal-confirm" type="button" data-bs-original-title="" title="">Xác nhận</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+              </div>
+
+
+<script>
+    function showModalDelete(id) {
+        $("#modal-warning").modal("show");
+        $("#warning-modal-confirm").click(function (e) {
+            e.preventDefault();
+            $("#modal-warning").modal("hide");
+            $.ajax({
+                data: { id: id },
+                type: "POST",
+                dataType: "json",
+                url: '@Url.Action("Delete")',
+                cache: false,
+                success: function (resp) {
+                },
+                error: function (error) {
+                    alert("Lỗi")
+                },
+                complete: function () {
+                    window.location.reload();
+                }
+            });
+        });
+    }
+</script>

@@ -1,0 +1,68 @@
+﻿@model EcommerceCore.ViewModel.Product.ProductCrudModel
+
+@{
+    ViewData["Title"] = "Tạo mới sản phẩm";
+}
+
+<form  asp-action="Create" method="post" enctype="multipart/form-data">
+   <div class="@SystemStyleCard.Card">
+       <div class="@SystemStyleCard.CardHeader bg-primary py-3">
+           <h4 class="mb-0">@ViewData["Title"]</h4>
+       </div>
+       <div class="@SystemStyleCard.CardBody">
+           <div class="@SystemStyleForm.ThemeForm">
+              <div class="mb-3">
+                <label>Tên sản phẩm </label>
+                <input class="form-control" type="text" asp-for="Name" placeholder="Tên"  />
+                <span asp-validation-for="Name" class="@SystemText.TextDanger"></span>
+              </div>
+               <div class="mb-3">
+                <label>Mã sản phẩm </label>
+                <input class="form-control" type="text" asp-for="Code" placeholder="Mã sản phẩm"  />
+                <span asp-validation-for="Code" class="@SystemText.TextDanger"></span>
+              </div>
+               <div class="mb-3">
+                <label>Mô tả </label>
+                <input class="form-control" type="text" asp-for="Description" placeholder="Mô tả"  />
+                <span asp-validation-for="Description" class="@SystemText.TextDanger"></span>
+              </div>
+               <div class="mb-3">
+                <label>Số lượng</label>
+                <input class="form-control" type="number" asp-for="Quantity" placeholder="Số lượng"  />
+                <span asp-validation-for="Quantity" class="@SystemText.TextDanger"></span>
+              </div>
+              <div class="mb-3">
+                <label>Giá gốc</label>
+                <input class="form-control" type="text" asp-for="BasePrice" placeholder="Giá gốc"  />
+                <span asp-validation-for="Code" class="@SystemText.TextDanger"></span>
+              </div>
+               <div class="mb-3">
+                <label>Giá bán</label>
+                <input class="form-control" type="number" asp-for="SellPrice" placeholder="Giá bán"  />
+                <span asp-validation-for="SellPrice" class="@SystemText.TextDanger"></span>
+              </div>
+                <div class="mb-3">
+                  <label>Danh mục sản phẩm</label>
+                    <select class="form-select" asp-for="CategoryId" asp-items="@(new SelectList(Model.ListCategoryViewModel, "Id", "Name"))">
+                    <option selected="selected" value="">Chọn danh mục sản phẩm</option>
+                </select>
+              </div>
+               <div class="mb-3">
+                  <label>Trạng thái sản phẩm </label>
+                    <select class="form-select" asp-for="Status" asp-items="Html.GetEnumSelectList<SysEnum.ProductStatus>()">
+                    <option selected="selected" value="">Chọn trạng thái sản phẩm</option>
+                </select>
+              </div>
+             @* <div class="mb-3">
+                <label>Hình ảnh</label>
+                <input class="form-control" type="file" asp-for="FileImage" placeholder="Hình ảnh"  />
+                <span asp-validation-for="FileImage" class="@SystemText.TextDanger"></span>
+              </div>*@
+           </div>
+       </div>
+       <div class="@SystemStyleForm.ThemeFooter">
+           <button type="submit" class="btn btn-rounded btn-success">Lưu</button>
+           <a class="btn btn-rounded btn-danger" href="@Url.Action("Index")">Trở về</a>
+       </div>
+   </div>
+</form>

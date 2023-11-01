@@ -1,0 +1,168 @@
+﻿@using static EcommerceCore.Const.SysEnum;
+@model IEnumerable<EcommerceCore.ViewModel.Product.ProductViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    var categoryList = ViewBag.CategoryList;
+}
+<div class="container-fluid">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Product</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index")" data-bs-original-title="" title="">Home</a></li>
+                    <li class="breadcrumb-item">ECommerce</li>
+                    <li class="breadcrumb-item active">Product</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xl-3 xl-40 box-col-4">
+            <div class="job-sidebar">
+                <a class="btn btn-primary job-toggle" href="javascript:void(0)">job filter</a>
+                <div class="job-left-aside custom-scrollbar">
+                    <div class="default-according style-1 faq-accordion job-accordion" id="accordionoc">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0 p-0">
+                                            <span >Filter</spa>
+                                        </h5>
+                                    </div>
+                                    <form>
+                                        <div class="collapse show" id="collapseicon" aria-labelledby="collapseicon" data-parent="#accordion" style="">
+                                            <div class="card-body filter-cards-view animate-chk">
+                                                <div class="job-filter mb-3">
+                                                    <div class="faq-form">
+                                                        <input class="form-control" name="keyword" id="keyword" type="text" placeholder="Search..">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search search-icon">
+                                                            <circle cx="11" cy="11" r="8"></circle>
+                                                            <line x1="21" y1="21" x2="16.65" y2="16.65">
+                                                            </line>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="job-filter">
+                                                    <div class="faq-form">
+                                                        <select class="form-select" name="selectType" id="selectType" asp-items="@(new SelectList(@categoryList, "Id", "Name"))">
+                                                            <option selected="selected" value="">Search by category...</option>
+                                                        </select>
+                                                    </div>
+                                                  
+                                                </div>
+                                                <br />
+                                                <button class="btn btn-primary text-center" type="submit">Find</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 xl-60 box-col-8">
+            <div class="product-grid">
+                <div class="product-wrapper-grid">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-xl-3 col-sm-6 xl-4">
+                                <div class="card">
+                                    <div class="product-box">
+                                        <div class="product-img">
+                                            @if (@item.ProductImages.Count() > 0)
+                                            {
+                                                var imageUrl = @item.ProductImages.FirstOrDefault().Image.Url;
+                                                <img class="img-fluid" src="@imageUrl" alt="">
+                                            }
+                                            else
+                                            {
+                                                <img class="img-fluid" src="http://admin.pixelstrap.com/viho/assets/images/product/1.png" alt="">
+                                            }
+                                            <div class="product-hover">
+                                                <ul>
+                                                    <li>
+                                                        <a asp-controller="Cart" asp-action="CreateCart" asp-route-productId="@item.Id">
+                                                            <i class="fa fa-shopping-cart"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-bs-toggle="modal" data-bs-target="#@item.Id" data-bs-original-title="" title="">
+                                                            <i class="fa fa-eye"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="@item.Id">
+                                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <div class="product-box row">
+                                                            <div class="product-img col-lg-6">
+                                                                @if (@item.ProductImages.Count() > 0)
+                                                                {
+                                                                    var imageUrl = @item.ProductImages.FirstOrDefault().Image.Url;
+                                                                    <img class="img-fluid" src="@imageUrl" alt="">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img class="img-fluid" src="http://admin.pixelstrap.com/viho/assets/images/product/1.png" alt="">
+                                                                }
+                                                            </div>
+                                                            <div class="product-details col-lg-6 text-start">
+                                                                <a href="product-page.html" data-bs-original-title="" title="">
+                                                                    <h4>@item.Name  </h4>
+                                                                </a>
+                                                                <div class="product-price">
+                                                                    @(String.Format(info, "{0:c}", @item.SellPrice))
+                                                                    @*<del>$35.00</del>*@
+                                                                </div>
+                                                                <div class="product-view">
+                                                                    <h6 class="f-w-600">Product Details</h6>
+                                                                    <p class="mb-0">
+                                                                        @item.Description
+                                                                    </p>
+                                                                </div>
+                                                                <div class="addcart-btn">
+                                                                    <a class="btn btn-primary me-3" asp-controller="Cart" asp-action="CreateCart" asp-route-productId="@item.Id">
+                                                                        Add to Cart
+                                                                    </a>
+                                                                    <a class="btn btn-primary" href="@Url.Action("Index", "ProductEndUser", new {id = item.Id})" data-bs-original-title="" title="">View Details</a>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-details">
+                                            <a href="product-page.html" data-bs-original-title="" title="">
+                                                <h4>@item.Name</h4>
+                                            </a>
+                                            <p>@item.Description</p>
+                                            <div class="product-price">
+                                                @(String.Format(info, "{0:c}", @item.SellPrice))
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

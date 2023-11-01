@@ -1,0 +1,19 @@
+﻿@model EcommerceCore.ViewModel.ProductFeedback.ProductFeedbackCrudModel
+<form asp-action="CreateProductFeedback" method="post" >
+        <input type="hidden" asp-for="ProductId" value="@Model.ProductId">
+        <input type="hidden" asp-for="Type" value="@( (int)SysEnum.ProductFeedbackType.Content )">
+        <div class="@SystemStyleCard.Card">
+            <div class="@SystemStyleCard.CardBody">
+                <div class="@SystemStyleForm.ThemeForm">
+                    <div class="mb-3">
+                    <label>Feedback</label>
+                    <textarea class="form-control not-apply" type="text" asp-for="Content" placeholder="Feedbacks"></textarea>  
+                    <span asp-validation-for="Content" class="@SystemText.TextDanger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="@SystemStyleForm.ThemeFooter">
+                <button type="submit" class="btn btn-rounded">Send</button>
+            </div>
+        </div>
+</form>

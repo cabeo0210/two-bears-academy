@@ -1,0 +1,26 @@
+﻿@model EcommerceCore.ViewModel.Image.ImageCrudModel
+@{
+    ViewData["Title"] = "Hình ảnh sản phẩm";
+}
+<form asp-action="CreateProductImages" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="ProductId" value="@Model.ProductId" />
+
+   <div class="@SystemStyleCard.Card">
+       <div class="@SystemStyleCard.CardHeader bg-primary py-3">
+           <h4 class="mb-0">@ViewData["Title"]</h4>
+       </div>
+       <div class="@SystemStyleCard.CardBody">
+           <div class="@SystemStyleForm.ThemeForm">
+             <div class="mb-3">
+                <label>Hình ảnh</label>
+                <input class="form-control" type="file" asp-for="FileImage" placeholder="Hình ảnh"  />
+                <span asp-validation-for="FileImage" class="@SystemText.TextDanger"></span>
+              </div>
+           </div>
+       </div>
+       <div class="@SystemStyleForm.ThemeFooter">
+           <button type="submit" class="btn btn-rounded btn-success">Lưu</button>
+           <a class="btn btn-rounded btn-danger" href="@Url.Action("Index")">Trở về</a>
+       </div>
+   </div>
+</form>

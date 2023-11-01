@@ -1,0 +1,114 @@
+﻿@using static EcommerceCore.Const.SysEnum;
+@model EcommerceCore.ViewModel.Order.OrderCrudModel
+
+@{
+    ViewData["Title"] = "Tạo mới đơn hàng";
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<form asp-action="Create" method="post">
+    <div class="@SystemStyleCard.Card">
+        <div class="@SystemStyleCard.CardHeader bg-primary py-3">
+            <h4 class="mb-0">@ViewData["Title"]</h4>
+        </div>
+        <div class="@SystemStyleCard.CardBody">
+            <div class="@SystemStyleForm.ThemeForm">
+                <input type="hidden" id="productIds" asp-for="ProductIds" />
+                <div class="mb-3">
+                    <label>Người mua</label>
+                    <select class="form-select" asp-for="CreateByUserId" asp-items="@(new SelectList(Model.ListUserViewModel, "UserId", "Name"))">
+                        <option selected="selected" value="">Chọn người mua</option>
+                    </select>
+
+                </div>
+                <div class="mb-3">
+                    <label>
+                        Trạng thái đơn hàng
+                    </label>
+                    <select class="form-select" asp-for="OrderStatus" asp-items="Html.GetEnumSelectList<OrderStatus>()">
+                        <option selected="selected" value="">Chọn trạng thái đơn hàng</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label>
+                        Trạng thái thanh toán
+                    </label>
+                    <select class="form-select" asp-for="PaymentStatus" asp-items="Html.GetEnumSelectList<PaymentStatus>()">
+                        <option selected="selected" value="">Chọn trạng thái thanh toán</option>
+                    </select>
+                </div> 
+                <div class="mb-3">
+                    <label>
+                        Trạng thái vận chuyển
+                    </label>
+                    <select class="form-select" asp-for="ShippingStatus" asp-items="Html.GetEnumSelectList<ShippingStatus>()">
+                        <option selected="selected" value="">Chọn trạng thái vận chuyển</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>
+                        Địa chỉ
+                    </label>
+                    <input class="form-control" type="text" asp-for="Address" placeholder="Nhập địa chỉ" />
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tên</th>
+                                <th scope="col">Mã sản phẩm</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Chọn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model.ListProductViewModel)
+                            {
+                                <tr>
+                                    <td>@product.Name</td>
+                                    <td>@product.Code</td>
+                                    <td>@(String.Format(info, "{0:c}", product.SellPrice))</td>
+                                    <td>
+                                        <div class="form-group checkbox">
+                                            <input id="check_@product.Id" onclick="addProduct(@product.Id)" type="checkbox">
+                                            <label for="check_@product.Id"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="@SystemStyleForm.ThemeFooter">
+                <button type="submit" class="btn btn-rounded btn-success">Lưu</button>
+                <a class="btn btn-rounded btn-danger" href="@Url.Action("Index")">Trở về</a>
+            </div>
+        </div>
+    </div>
+</form>
+@*@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}*@
+
+@section Scripts{
+    <script>
+        var tmp = [];
+        function addProduct(productId) {
+            // Check xem checkbox có đang checked hay k
+            var checkboxStatus = document.getElementById("check_" + productId).checked;
+            var productIds = document.getElementById("productIds");
+            console.log(checkboxStatus);
+            if (checkboxStatus == true) {
+                tmp.push(productId);
+            } else {
+                tmp.pop(productId);
+            }
+            productIds.value = tmp;
+            console.log(productIds);
+
+        }
+    </script>
+}

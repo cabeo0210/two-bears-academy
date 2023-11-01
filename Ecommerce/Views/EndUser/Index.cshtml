@@ -1,0 +1,89 @@
+﻿@model IEnumerable<EcommerceCore.ViewModel.User.UserViewModel>
+@{
+    ViewData["Title"] = "Quản lý tài khoản";
+}
+<div class="@SystemStyleCard.Card">
+    <div class="@SystemStyleCard.CardHeader">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <h4 class="page-title mb-0">@ViewData["Title"]</h4>
+            </div>
+            <div>
+                <a href="@Url.Action("Create")" class="btn btn-rounded btn-light" data-toggle="tooltip" title="Tạo mới tài khoản">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="@SystemStyleCard.CardBody">
+        <div class="user-status table-responsive">
+            <table class="table table-bordernone">
+                <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th >Hình ảnh</th>
+                        <th>Ngày sinh</th>
+                        <th>Email</th>
+                        <th>Sđt</th>
+                        @*<th>Địa chỉ</th>*@
+                        <th>Giới tính</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count() > 0)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td><img src="@item.Avatar" style=" height:100px" /></td>
+                                <td>@item.DateOfBirthDisplay</td>
+                                <td>@item.Email</td>
+                                <td>@item.Phone</td>
+                                <td>@item.EnumGenderDisplay</td>
+                                <td>@item.StatusDisplay</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.UserId">
+                                        <i data-feather="edit"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.UserId">
+                                        <i data-feather="trash-2"></i>
+                                    </a>
+                                    <a asp-action="UpdateStatus" asp-route-id="@item.UserId" asp-route-isActive="@item.IsActive">
+                                        @if(item.IsActive)
+                                        {
+                                            <i data-feather="x"></i>
+
+                                        }else
+                                        {
+                                            <i data-feather="check"></i>
+                                        }
+                                    </a>
+                                    <a asp-action="ResetPassword" asp-route-id="@item.UserId">
+                                        <i data-feather="settings"></i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>Không có dữ liệu.</td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
