@@ -39,7 +39,7 @@
         <!-- /.modal-dialog -->
     </div>
               </div>
-
+</div>
 
 <script>
     function showModalDelete(id) {
@@ -51,7 +51,7 @@
                 data: { id: id },
                 type: "POST",
                 dataType: "json",
-                url: '@Url.Action("Delete")',
+                url: '/Cart/RemoveCart/',
                 cache: false,
                 success: function (resp) {
                 },

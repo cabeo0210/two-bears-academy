@@ -201,7 +201,7 @@
                 $.ajax({
                     data: { orderId: orderId },
                     type: "POST",
-                    url: '@Url.Action("Delete")',
+                    url: '/Order/Delete/',
                     cache: false,
                     success: function (resp) {
                         console.log(resp);

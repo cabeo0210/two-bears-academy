@@ -53,27 +53,27 @@ namespace Ecommerce.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        public IActionResult TermAndCondition()
-        {
-            return View();
-        }
-        public IActionResult Test()
-        {
-            _userRepository.Add(new UserCrudModel
-            {
-                Name = "hehe",
-                Password = "12456",
-                Email = "abc@gmail.com",
-                Phone = "091494452",
-            });
-
-            return View();
-        }
+        // public IActionResult Privacy()
+        // {
+        //     return View();
+        // }
+        //
+        // public IActionResult TermAndCondition()
+        // {
+        //     return View();
+        // }
+        // public IActionResult Test()
+        // {
+        //     _userRepository.Add(new UserCrudModel
+        //     {
+        //         Name = "hehe",
+        //         Password = "12456",
+        //         Email = "abc@gmail.com",
+        //         Phone = "091494452",
+        //     });
+        //
+        //     return View();
+        // }
 
         [HttpPost]
         public ActionResult Login(LoginViewModel loginModel)
