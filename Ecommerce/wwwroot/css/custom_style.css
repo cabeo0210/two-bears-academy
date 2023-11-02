@@ -1,122 +1,118 @@
 ﻿/************* SETUP FONT - START *************/
 /* be-vietnam-pro-200 - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: normal;
-    font-weight: 200;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-200.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-200.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-200italic - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: italic;
-    font-weight: 200;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-200italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-200italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-300italic - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: italic;
-    font-weight: 300;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-300italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-300italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-300 - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: normal;
-    font-weight: 300;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-regular - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: normal;
-    font-weight: 400;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-italic - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: italic;
-    font-weight: 400;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-500 - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: normal;
-    font-weight: 500;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-500italic - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: italic;
-    font-weight: 500;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-500italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-500italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-600 - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: normal;
-    font-weight: 600;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-600.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-600italic - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: italic;
-    font-weight: 600;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-600italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-600italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-800 - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: normal;
-    font-weight: 800;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-800.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-800.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-800italic - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: italic;
-    font-weight: 800;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-800italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-800italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-900 - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: normal;
-    font-weight: 900;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-900.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-900.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* be-vietnam-pro-900italic - vietnamese_latin */
-@font-face {
-    font-family: 'Be Vietnam Pro';
-    font-style: italic;
-    font-weight: 900;
-    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-900italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('../fonts/be-vietnam-pro-v10-vietnamese_latin-900italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: normal;*/
+/*    font-weight: 200;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-200.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-200.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
 
+/*!* be-vietnam-pro-200italic - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: italic;*/
+/*    font-weight: 200;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-200italic.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-200italic.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
+
+/*!* be-vietnam-pro-300italic - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: italic;*/
+/*    font-weight: 300;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-300italic.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-300italic.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
+
+/*!* be-vietnam-pro-300 - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: normal;*/
+/*    font-weight: 300;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-300.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-300.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
+
+/*!* be-vietnam-pro-regular - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-regular.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-regular.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
+
+/*!* be-vietnam-pro-italic - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: italic;*/
+/*    font-weight: 400;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-italic.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-italic.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
+
+/*!* be-vietnam-pro-500 - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: normal;*/
+/*    font-weight: 500;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-500.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-500.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
+
+/*!* be-vietnam-pro-500italic - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: italic;*/
+/*    font-weight: 500;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-500italic.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-500italic.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
+
+/*!* be-vietnam-pro-600 - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: normal;*/
+/*    font-weight: 600;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-600.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-600.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
+
+/*!* be-vietnam-pro-600italic - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: italic;*/
+/*    font-weight: 600;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-600italic.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-600italic.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
+
+/*!* be-vietnam-pro-800 - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: normal;*/
+/*    font-weight: 800;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-800.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-800.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
+
+/*!* be-vietnam-pro-800italic - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: italic;*/
+/*    font-weight: 800;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-800italic.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-800italic.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
+
+/*!* be-vietnam-pro-900 - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: normal;*/
+/*    font-weight: 900;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-900.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-900.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
+
+/*!* be-vietnam-pro-900italic - vietnamese_latin *!*/
+/*@font-face {*/
+/*    font-family: 'Be Vietnam Pro';*/
+/*    font-style: italic;*/
+/*    font-weight: 900;*/
+/*    src: local(''), url('../fonts/be-vietnam-pro-v10-vietnamese_latin-900italic.woff2') format('woff2'), !* Chrome 26+, Opera 23+, Firefox 39+ *! url('../fonts/be-vietnam-pro-v10-vietnamese_latin-900italic.woff') format('woff'); !* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ *!*/
+/*}*/
 
 
 /************* SETUP FONT - END *************/
-
-
 
 
 /************* GENERAL - START *************/
@@ -183,18 +179,18 @@ hr.hr-text {
     background: #999;
 }
 
-    hr.hr-text::before {
-        content: attr(data-content);
-        display: inline-block;
-        background: #fff;
-        font-size: 0.85rem;
-        border-radius: 30rem;
-        padding: 0.2rem 2rem;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
+hr.hr-text::before {
+    content: attr(data-content);
+    display: inline-block;
+    background: #fff;
+    font-size: 0.85rem;
+    border-radius: 30rem;
+    padding: 0.2rem 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 
 #toast-container > .toast-success {
@@ -302,9 +298,9 @@ hr.hr-text {
     padding-bottom: 0px !important;
 }
 
-    .page-main-header .nav-right .nav-menus {
-        height: 60px;
-    }
+.page-main-header .nav-right .nav-menus {
+    height: 60px;
+}
 
 .dropdown-item:hover, .dropdown-item:focus {
     background-color: rgb(81 107 170 / 0.10);
@@ -314,6 +310,7 @@ hr.hr-text {
     background-color: #FFF !important;
     border-radius: 0.25rem;
 }
+
 .hover-bg-light:hover {
     background-color: #ddeaf7 !important;
     border-radius: 0.25rem;
@@ -334,13 +331,15 @@ hr.hr-text {
     max-height: 69vh;
 }
 
-    .table-sticky thead th {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
+.table-sticky thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
 
-    .table-sticky th {
-        background: #ffffff;
-    }
+.table-sticky th {
+    background: #ffffff;
+}
+
+
 /************* OTHER - END *************/
