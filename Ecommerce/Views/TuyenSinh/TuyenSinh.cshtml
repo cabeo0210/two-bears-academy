@@ -1,0 +1,55 @@
+﻿@model string
+
+<style>
+    .column {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+        height: auto;
+    }
+    .card {
+        margin: 10px;
+        padding: 10px;
+        cursor: move;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    .ui-sortable-helper {
+        opacity: 0.5;
+    }
+</style>
+
+<div class="container">
+    <h2>Kanban Board</h2>
+
+    <div class="row">
+        <div id="todo" class="column col-md p-3" style="margin: 0 5px 5px 0">
+            <h3>TO DO</h3>
+            <div class="card bg-light">
+                <h6>Task 1</h6>
+                <p>Task content</p>
+            </div>
+            <div class="card bg-light">
+                <h6>Task 2</h6>
+                <p>Task content</p>
+            </div>
+        </div>
+
+        <div id="doing" class="column col-md p-3" style="margin: 0 5px 5px 0">
+            <h3>DOING</h3>
+            <div class="card bg-light">
+                <h6>Task 3</h6>
+                <p>Task content</p>
+            </div>
+        </div>
+
+        <div id="done" class="column col-md p-3" style="margin: 0 0 5px 0">
+            <h3>DONE</h3>
+            <div class="card bg-light">
+                <h6>Task 4</h6>
+                <p>Task content</p>
+            </div>
+        </div>
+        @* Add more column belows *@
+    </div>
+</div>

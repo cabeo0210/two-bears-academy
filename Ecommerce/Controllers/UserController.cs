@@ -22,7 +22,6 @@ namespace Ecommerce.Controllers
 
     public class UserController : Controller
     {
-
         private readonly IHttpContextAccessor _httpContextAccessor;
         private EcommerceDbContext _dbContext;
         private UserRepository _userRepository;
