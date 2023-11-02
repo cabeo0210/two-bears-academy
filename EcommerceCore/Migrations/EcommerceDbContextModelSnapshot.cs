@@ -218,6 +218,70 @@ namespace EcommerceCore.Migrations
                     b.ToTable("CouponHistories");
                 });
 
+            modelBuilder.Entity("EcommerceCore.Models.Enroll", b =>
+                {
+                    b.Property<int>("EnrollId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("LeadId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EnrollId");
+
+                    b.HasIndex("LeadId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Enrolls");
+                });
+
+            modelBuilder.Entity("EcommerceCore.Models.HistoryEnroll", b =>
+                {
+                    b.Property<int>("HistoryEnrollId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("EnrollId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("StatusEnroll")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("HistoryEnrollId");
+
+                    b.HasIndex("EnrollId");
+
+                    b.ToTable("HistoryEnrolls");
+                });
+
             modelBuilder.Entity("EcommerceCore.Models.Image", b =>
                 {
                     b.Property<int>("Id")
@@ -242,6 +306,59 @@ namespace EcommerceCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("EcommerceCore.Models.Lead", b =>
+                {
+                    b.Property<int>("LeadId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClaimUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid>("LeadGuid")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Source")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("LeadId");
+
+                    b.HasIndex("ClaimUserId");
+
+                    b.ToTable("Leads");
                 });
 
             modelBuilder.Entity("EcommerceCore.Models.New", b =>
@@ -649,6 +766,25 @@ namespace EcommerceCore.Migrations
                             Role = 0,
                             UpdatedAt = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             UserGuid = new Guid("00000000-0000-0000-0000-000000000000")
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            Address = "21 Street 6",
+                            Avatar = "",
+                            CreatedAt = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "sale@xprofile.com",
+                            Gender = 0,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "XProfile Sale",
+                            Password = "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=",
+                            Phone = "0123456789",
+                            ResetPasswordGuid = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Role = 3,
+                            UpdatedAt = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            UserGuid = new Guid("00000000-0000-0000-0000-000000000000")
                         });
                 });
 
@@ -687,6 +823,47 @@ namespace EcommerceCore.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("Coupon");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EcommerceCore.Models.Enroll", b =>
+                {
+                    b.HasOne("EcommerceCore.Models.Lead", "Lead")
+                        .WithMany()
+                        .HasForeignKey("LeadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EcommerceCore.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lead");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EcommerceCore.Models.HistoryEnroll", b =>
+                {
+                    b.HasOne("EcommerceCore.Models.Enroll", "Enroll")
+                        .WithMany("HistoryEnrolls")
+                        .HasForeignKey("EnrollId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Enroll");
+                });
+
+            modelBuilder.Entity("EcommerceCore.Models.Lead", b =>
+                {
+                    b.HasOne("EcommerceCore.Models.User", "User")
+                        .WithMany("Leads")
+                        .HasForeignKey("ClaimUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -783,6 +960,11 @@ namespace EcommerceCore.Migrations
                     b.Navigation("CartItems");
                 });
 
+            modelBuilder.Entity("EcommerceCore.Models.Enroll", b =>
+                {
+                    b.Navigation("HistoryEnrolls");
+                });
+
             modelBuilder.Entity("EcommerceCore.Models.Order", b =>
                 {
                     b.Navigation("OrderItems");
@@ -791,6 +973,11 @@ namespace EcommerceCore.Migrations
             modelBuilder.Entity("EcommerceCore.Models.Product", b =>
                 {
                     b.Navigation("ProductImages");
+                });
+
+            modelBuilder.Entity("EcommerceCore.Models.User", b =>
+                {
+                    b.Navigation("Leads");
                 });
 #pragma warning restore 612, 618
         }
