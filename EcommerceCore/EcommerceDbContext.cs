@@ -39,6 +39,5 @@ namespace Ecommerce
         public DbSet<Lead> Leads { get; set; }
         public DbSet<Enroll> Enrolls { get; set; }
         public DbSet<HistoryEnroll> HistoryEnrolls { get; set; }
-        
     }
 }
