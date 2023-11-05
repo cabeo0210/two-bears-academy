@@ -1,0 +1,167 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Danh sách liên hệ mới";
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<div class="@SystemStyleCard.Card">
+    <div class="@SystemStyleCard.CardHeader">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <h4 class="page-title mb-0">@ViewData["Title"]</h4>
+            </div>
+            <div>
+                <a href="#" class="btn btn-rounded btn-light" data-toggle="tooltip" title="Tạo liên hệ mới">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="@SystemStyleCard.CardBody">
+        <div class="mb-2 mx-auto">
+            <form asp-action="">
+                <div class="form-group row justify-content-center">
+                    <div class="col-8 row justify-content-center mb-2">
+                        <div class="col-8 " style="display:flex">
+                            <input type="text" name="keyword" id="keyword"
+                                   placeholder="Từ khóa .." class="form-control"/>
+                        </div>
+                        <div class="col-4 ">
+                            <button class="btn btn-primary btn-rounded" type="submit" id="btnSearch">
+                                <span class="fa fa-search"></span>Tìm
+                            </button>
+                        </div>
+
+                    </div>
+
+                    @* <div class="col-8 row justify-content-center"> *@
+                    @*     <div class="col-8" style="display:flex"> *@
+                    @*         <select class="form-select mx-1" name="paymentStatus" id="paymentStatus"> *@
+                    @*             <option selected="selected" value="">Trạng thái thanh toán</option> *@
+                    @*         </select> *@
+                    @*         <select class="form-select mx-1" name="orderStatus" id="orderStatus"> *@
+                    @*             <option selected="selected" value="">Trạng thái đơn hàng</option> *@
+                    @*         </select> *@
+                    @*         <select class="form-select" name="shippingStatus" id="shippingStatus"> *@
+                    @*             <option selected="selected" value="">Trạng thái vận chuyển</option> *@
+                    @*         </select> *@
+                    @*     </div> *@
+                    @*     <div class="col-4"> *@
+                    @*         <a class="btn btn-light btn-rounded" id="btnClear"> *@
+                    @*             Xoá bộ lọc *@
+                    @*         </a> *@
+                    @*     </div> *@
+                    @* *@
+                    @* </div> *@
+                </div>
+
+            </form>
+
+        </div>
+        <div class="user-status table-responsive">
+            <table class="table table-bordernone">
+                <thead>
+                <tr>
+                    <th>Tên</th>
+                    <th>Email</th>
+                    <th>SĐT</th>
+                    <th>Ngày tạo</th> 
+                    <th>Tình trạng</th>
+                    <th>Hành động</th>
+                </tr>
+                </thead>
+                <tbody>
+                @* @if (Model.Count() > 0) *@
+                @* { *@
+                    @* @foreach (var item in Model) *@
+                    @* { *@
+                        <tr>
+                            @* <td>@item.Code</td> *@
+                            @* <td>@item.Address</td> *@
+                            @* <td> *@
+                            @*     @if (item.OrderItems != null && item.OrderItems.Count() > 0) *@
+                            @*     { *@
+                            @*         @foreach (var orderItem in item.OrderItems) *@
+                            @*         { *@
+                            @*             <p>@orderItem.Product.Name</p> *@
+                            @*         } *@
+                            @*     } *@
+                            @* *@
+                            @* </td> *@
+                            @* <td>@(String.Format(info, "{0:c}", @item.Total))</td> *@
+                            @* <td>@item.OrderStatusDisplay</td> *@
+                            @* <td>@item.PaymentStatusDisplay</td> *@
+                            @* <td>@item.ShippingStatusDisplay</td> *@
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <a asp-action="" asp-route-orderId="">
+                                    <i data-feather="edit"></i>
+                                </a>
+                                <a asp-action="" asp-route-orderId="">
+                                    <i data-feather="printer"></i>
+                                </a>
+                                <a href="javascript:void(0)" onclick="showModalDelete(0)">
+                                    <i data-feather="trash-2"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                @* } *@
+                @* else *@
+                @* { *@
+                @*     <tr> *@
+                @*         <td>Không có dữ liệu.</td> *@
+                @*     </tr> *@
+                @* } *@
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-warning">
+        <div class="modal-dialog">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="warning-modal-title">Xác nhận</h4>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
+                </div>
+                <div class="modal-body" id="warning-modal-body">
+                    Bạn có chắc muốn xóa đơn hàng này
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="warning-modal-cancel" type="button" data-bs-dismiss="modal" data-bs-original-title="" title="">Đóng</button>
+                    <button class="btn btn-primary" id="warning-modal-confirm" type="button" data-bs-original-title="" title="">Xác nhận</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+</div>
+<script>
+    function showModalDelete(orderId) {
+        $("#modal-warning").modal("show");
+        $("#warning-modal-confirm").click(function (e) {
+            e.preventDefault();
+            $("#modal-warning").modal("hide");
+            // $.ajax({
+            //     data: { orderId: orderId },
+            //     type: "POST",
+            //     url: '',
+            //     cache: false,
+            //     success: function (resp) {
+            //         console.log(resp);
+            //         window.location.reload();
+            //     }
+            // });
+        });
+    }
+</script>
