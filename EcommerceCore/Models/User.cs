@@ -42,6 +42,5 @@ namespace EcommerceCore.Models
     {
         [ForeignKey(nameof(CartId))]
         public Cart Cart { get; set; }
-        public List<Lead> Leads { get; set; } 
     }
 }

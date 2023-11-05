@@ -7,7 +7,7 @@ public class BaseLead : BaseClass
 {
     [Key]
     public int LeadId { get; set; }
-    public int ClaimUserId { get; set; }
+    public int? ClaimUserId { get; set; }
     public Guid LeadGuid { get; set; }
     [Required(ErrorMessage = "Không được để trống")]
     [MaxLength(200, ErrorMessage = "Không được vượt quá 255 ký tự")]
@@ -23,6 +23,5 @@ public class BaseLead : BaseClass
 
 public class Lead : BaseLead
 {
-    [ForeignKey(nameof(ClaimUserId))]
-    public User User { get; set; }
+
 }

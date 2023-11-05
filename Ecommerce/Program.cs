@@ -47,7 +47,11 @@ string connectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<EcommerceDbContext>(options => options
     .UseMySql(
         connectionString,
-        ServerVersion.AutoDetect(connectionString)
+        ServerVersion.AutoDetect(connectionString),
+        options => options.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: System.TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null)
     )
 );
 
