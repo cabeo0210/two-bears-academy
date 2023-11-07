@@ -23,15 +23,12 @@ public class LeadController : Controller
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
-        var leader = _leaderRepository.GetById(id);
-        if (leader != null)
-        {
-            _leaderRepository.Delete(_mapper.Map<LeaderCrudViewModel>(leader));
-            await _leaderRepository.CommitAsync();
-        }
+        var leader = _leaderRepository.FirstOrDefault(x => x.LeadId == id);
 
-        Response.StatusCode = 200;
-        return new JsonResult("Xóa thành công");
+        leader.IsDeleted = true;
+        await _leaderRepository.CommitAsync();
+
+        return new JsonResult("Xóa leader thành công");
     }
 
 
@@ -60,8 +57,11 @@ public class LeadController : Controller
 
     public IActionResult Index()
     {
-        var leads = _leaderRepository.GetAll();
+        var data = _leaderRepository.BuildQuery(
+            x => !x.IsDeleted);
+        data = data.OrderByDescending(x => x.CreatedAt);
+        var result = _mapper.Map<List<LeaderCrudViewModel>>(data.ToList());
 
-        return View(_mapper.Map<List<LeaderCrudViewModel>>(leads));
+        return View(result);
     }
 }
