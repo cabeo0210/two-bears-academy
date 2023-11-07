@@ -3,7 +3,7 @@ using Ecommerce.Repositories;
 using EcommerceCore.Models;
 using EcommerceCore.ViewModel.Tuyen;
 using Microsoft.AspNetCore.Mvc;
-using Task = DocumentFormat.OpenXml.Office2021.DocumentTasks.Task;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Controllers;
 
@@ -20,6 +20,11 @@ public class LeadController : Controller
         _leaderRepository = new LeaderRepository(_mapper, _dbContext);
     }
 
+    public IActionResult Search(string q)
+    {
+        return Json("");
+    }
+
     public IActionResult Edit(int id)
     {
         var leader = _leaderRepository.FirstOrDefault(x => x.LeadId == id);
@@ -31,7 +36,7 @@ public class LeadController : Controller
     public async Task<IActionResult> Edit(LeaderCrudViewModel model)
     {
         if (!ModelState.IsValid) return View(model);
-        
+
         var errorModel = new ErrorViewModel();
         try
         {
@@ -96,10 +101,17 @@ public class LeadController : Controller
         return View();
     }
 
-    public IActionResult Index()
+    public IActionResult Index(string keyword)
     {
+        Console.WriteLine("Query string: " + keyword);
         var data = _leaderRepository.BuildQuery(
             x => !x.IsDeleted);
+
+        if (!string.IsNullOrEmpty(keyword))
+        {
+            data = data.Where(x => EF.Functions.Like(x.Name!, $"%{keyword}%"));
+        }
+
         data = data.OrderByDescending(x => x.CreatedAt);
         var result = _mapper.Map<List<LeaderCrudViewModel>>(data.ToList());
 
