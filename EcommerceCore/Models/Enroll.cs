@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace EcommerceCore.Models;
 
@@ -13,5 +14,6 @@ public class Enroll :BaseClass
     public int LeadId { get; set; }
     [ForeignKey(nameof(LeadId))]
     public Lead Lead { get; set; }
+    [JsonIgnore]
     public List<HistoryEnroll> HistoryEnrolls { get; set; }
 }

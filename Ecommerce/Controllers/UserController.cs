@@ -113,7 +113,7 @@ namespace Ecommerce.Controllers
             .FirstOrDefaultAsync(
                x => x.Email!.Trim().ToLower() == loginModel.Email!.Trim().ToLower()
                && x.Password == loginModel.Password
-               && x.Role == (int)SysEnum.Role.Admin
+               && (x.Role == (int)SysEnum.Role.Admin||x.Role == (int)SysEnum.Role.Sale)
                && x.IsActive
                && !x.IsDeleted
             ).Result;
