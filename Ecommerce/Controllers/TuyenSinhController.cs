@@ -16,8 +16,5 @@ public class TuyenSinhController : Controller
         return View();
     }
     
-    public IActionResult Lead()
-    {
-        return View();
-    }
+    
 }

@@ -16,6 +16,7 @@ public class BaseLead : BaseClass
     [Required(ErrorMessage = "Không được để trống")]
     [MaxLength(20)]
     public string Phone { get; set; }
+    public string Password { get; set; }
     public string Position { get; set; }
     public string Note { get; set; }
     public string Source { get; set; }
