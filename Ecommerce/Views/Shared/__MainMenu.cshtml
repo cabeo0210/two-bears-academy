@@ -1,4 +1,9 @@
-﻿<header class="main-nav">
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+@{ 
+    var authenticationModel = HttpContextAccessor.HttpContext.Session.GetCurrentAuthentication() ;
+}
+<header class="main-nav">
     <nav>
         <div class="main-navbar">
             <div id="mainnav">
@@ -8,7 +13,9 @@
                             <span>Back</span>
                         </div>
                     </li>
-                    <li class="sidebar-main-title" style="overflow:auto">
+                    @if (authenticationModel.Role == (int)SysEnum.Role.Admin)
+                    {
+                          <li class="sidebar-main-title" style="overflow:auto">
                         <div>
                             <h6>Quản lý người dùng</h6>
                         </div>
@@ -130,6 +137,29 @@
                             Quản lý tin tức
                         </a>
                     </li>
+                    }
+                    @if (authenticationModel.Role == (int)SysEnum.Role.Sale)
+                    {
+                        <li class="sidebar-main-title" style="overflow:auto">
+                            <div>
+                                <h6>Tuyển sinh</h6>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="nav-link menu-title link-nav"
+                               asp-controller="TuyenSinh" asp-action="Index">
+                                @*<i class="@controller.ClassIconName me-2"></i>*@
+                                Quản lý tuyển sinh
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link menu-title link-nav"
+                               asp-controller="Lead" asp-action="Index">
+                                @*<i class="@controller.ClassIconName me-2"></i>*@
+                                Quản lý lead
+                            </a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>

@@ -136,6 +136,7 @@ namespace Ecommerce.Controllers
                 Name = user.Name,
                 UserGuid = user.UserGuid,
                 UserId = user.UserId,
+                Role = user.Role,
                 AvatarUrl = string.IsNullOrEmpty(user.Avatar) ? "/img/no-avatar.png" : user.Avatar,
                 Email = user.Email,
                 Phone = user.Phone,
