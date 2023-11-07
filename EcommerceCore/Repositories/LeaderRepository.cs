@@ -45,7 +45,7 @@ public class LeaderRepository
         return set.FirstOrDefault(predicate);
     }
 
-    public IQueryable<Lead> Where(Expression<Func<Lead, bool>> predicate)
+    public IQueryable<Lead> BuildQuery(Expression<Func<Lead, bool>> predicate)
     {
         IQueryable<Lead> set = _context.Set<Lead>();
         return set.Where(predicate);

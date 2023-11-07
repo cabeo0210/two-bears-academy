@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Ecommerce.Repositories;
+using EcommerceCore.Models;
 using EcommerceCore.ViewModel.Tuyen;
 using Microsoft.AspNetCore.Mvc;
+using Task = DocumentFormat.OpenXml.Office2021.DocumentTasks.Task;
 
 namespace Ecommerce.Controllers;
 
@@ -16,7 +18,20 @@ public class LeadController : Controller
         _dbContext = dbContext;
         _mapper = mapper;
         _leaderRepository = new LeaderRepository(_mapper, _dbContext);
-        
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var leader = _leaderRepository.GetById(id);
+        if (leader != null)
+        {
+            _leaderRepository.Delete(_mapper.Map<LeaderCrudViewModel>(leader));
+            await _leaderRepository.CommitAsync();
+        }
+
+        Response.StatusCode = 200;
+        return new JsonResult("Xóa thành công");
     }
 
 
@@ -27,7 +42,6 @@ public class LeadController : Controller
 
         try
         {
-            Console.WriteLine(leaderCrudViewModel.Name);
             _leaderRepository.Add(leaderCrudViewModel);
             await _leaderRepository.CommitAsync();
 
@@ -35,12 +49,8 @@ public class LeadController : Controller
         }
         catch (Exception)
         {
-            // return View("Error");
-            throw;
+            return View("Error");
         }
-
-
-        return View();
     }
 
     public IActionResult Create()
@@ -50,6 +60,8 @@ public class LeadController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        var leads = _leaderRepository.GetAll();
+
+        return View(_mapper.Map<List<LeaderCrudViewModel>>(leads));
     }
 }
