@@ -363,6 +363,17 @@
             $('.sortable-placeholder').remove();
         }
     });
+    
+    $('.signs-number').text($('.username').val().length)
+    console.log($('.username').val())
+    console.log($('.username').val().length)
+    $('.username').on('input', function ()  {
+        if ($(this).val().length <= 200) {
+            $('.signs-number').text($(this).val().length)
+        } else {
+            alert('Tên dài quá rồi ní!!!')
+        }
+    })
 </script>
 
 <script>

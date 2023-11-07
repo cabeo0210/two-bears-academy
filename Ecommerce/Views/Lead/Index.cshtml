@@ -83,7 +83,7 @@
                             <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
                             <td></td>
                             <td>
-                                <a asp-action="">
+                                <a asp-action="Edit" asp-route-id="@item.LeadId">
                                     <i data-feather="edit"></i>
                                 </a>
                                 <a asp-action="" asp-route-orderId="">

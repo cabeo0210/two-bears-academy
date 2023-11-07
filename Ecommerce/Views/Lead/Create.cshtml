@@ -18,8 +18,13 @@
                             <b>(*)</b>
                         </span>
                     </label>
-                    <input class="form-control" type="text" asp-for="Name"/>
-                    <span asp-validation-for="Name" class="@SystemText.TextDanger"></span>
+                    <input class="form-control username" type="text" asp-for="Name"/>
+                    <span>
+                        <span asp-validation-for="Name" class="@SystemText.TextDanger"></span>
+                        <span class="text-muted float-end">
+                            <i><span class="signs-number"></span>/200 ký tự</i>
+                        </span>
+                    </span>
                 </div>
                 <div class="mb-3">
                     <label>

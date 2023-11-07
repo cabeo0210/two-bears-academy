@@ -20,6 +20,48 @@ public class LeadController : Controller
         _leaderRepository = new LeaderRepository(_mapper, _dbContext);
     }
 
+    public IActionResult Edit(int id)
+    {
+        var leader = _leaderRepository.FirstOrDefault(x => x.LeadId == id);
+
+        return View(_mapper.Map<LeaderCrudViewModel>(leader));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(LeaderCrudViewModel model)
+    {
+        if (!ModelState.IsValid) return View(model);
+        
+        var errorModel = new ErrorViewModel();
+        try
+        {
+            var leader = _leaderRepository.FirstOrDefault(x => x.LeadId == model.LeadId);
+            if (leader != null)
+            {
+                leader.UpdatedAt = DateTime.Now;
+                leader.IsActive = model.IsActive;
+                leader.IsDeleted = false;
+                leader.Name = model.Name;
+                leader.Note = model.Note;
+                leader.Source = model.Source;
+                leader.Phone = model.Phone;
+                leader.Email = model.Email;
+
+                await _leaderRepository.CommitAsync();
+                return RedirectToAction("Index");
+            }
+
+
+            errorModel.ErrorMessage = "Lỗi không tìm thấy leader";
+            return View("Error", errorModel);
+        }
+        catch (Exception)
+        {
+            errorModel.ErrorMessage = "Lỗi khi chỉnh sửa leader";
+            return View("Error", errorModel);
+        }
+    }
+
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
@@ -30,7 +72,6 @@ public class LeadController : Controller
 
         return new JsonResult("Xóa leader thành công");
     }
-
 
     [HttpPost]
     public async Task<IActionResult> Create(LeaderCrudViewModel leaderCrudViewModel)
