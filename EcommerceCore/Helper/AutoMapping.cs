@@ -15,6 +15,7 @@ using EcommerceCore.ViewModel.Cart;
 using EcommerceCore.ViewModel.ProductHistory;
 using EcommerceCore.Models;
 using EcommerceCore.ViewModel.Tuyen;
+using EcommerceCore.ViewModel.TuyenSinh;
 
 namespace Ecommerce.Helper
 {
@@ -72,7 +73,11 @@ namespace Ecommerce.Helper
             
             // Leader
             CreateMap<LeaderCrudViewModel, Lead>().ReverseMap();
-
+            
+            
+            
+            CreateMap<EnrollViewModel, Enroll>().ReverseMap();
+            CreateMap<EnrollCrudViewModel, Enroll>().ReverseMap();
         }
     }
 }
