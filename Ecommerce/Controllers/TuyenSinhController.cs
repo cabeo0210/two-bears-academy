@@ -8,22 +8,13 @@ public class TuyenSinhController : Controller
     
     public IActionResult Sale()
     {
-
-
-        return Json("This is sale manager page");
+        return View();
     }
     
     public IActionResult TuyenSinh()
     {
-
-
         return View();
     }
     
-    public IActionResult Lead()
-    {
-
-
-        return Json("This is lead manager page");
-    }
+    
 }

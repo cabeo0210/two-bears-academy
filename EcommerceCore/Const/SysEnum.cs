@@ -113,5 +113,12 @@ namespace EcommerceCore.Const
             [Display(Name = "Rating")]
             Rating = 1,
         }
+        
+        public enum LeadPosition
+        {
+            [Display(Name = "Lead")]
+            Lead = 0,
+            
+        }
     }
 }
