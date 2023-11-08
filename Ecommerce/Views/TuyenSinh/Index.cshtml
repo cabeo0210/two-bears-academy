@@ -19,7 +19,7 @@
     }
 </style>
 
-<div class="container" id="myKanbanBoard">
+<div id="myKanbanBoard">
 
 </div>
 
@@ -52,11 +52,17 @@
                return formattedDateTime;
            }
             function getEnroll() {
+                const keySearch = $("#keySearch").val();
+                const dataSearch = {keySearch:keySearch}
                 $.ajax({
                     url: '@Url.Action("GetEnroll", "TuyenSinh")',
                     type: "GET",
+                    data: dataSearch,
                     success: function (data) {
                         $("#myKanbanBoard").html(data);
+                        if (keySearch!=null){
+                            $("#keySearch").val(keySearch);
+                        }
                         $(document).ready(function () {
                              $(".show-history").click(function (){
                                   const StatusEnroll = {
@@ -67,16 +73,22 @@
                                      4: "Chuyển lớp khác"
                                  };
                                 const data = $(this).attr("data");
+                                const infoLead = $(this).attr("data-lead");
+                                const infoSale = $(this).attr("data-sale");
                                 const listHistory = JSON.parse(data); 
                                 const $contentDiv = $("#content-history");
+                                const $contentHead = $("#showHistoryModalLabel");
+                                var $liHead = $("<p>").text("Lịch sử thay đổi: "+infoLead);
+                                $contentHead.empty().append($liHead)
                                 const $ul = $("<ul>");
                                 $.each(listHistory, function(index, item) {
-                                
                                       // Check if there's a next item in the list and if the status has changed
                                       if (index < listHistory.length - 1 && item.StatusEnroll !== listHistory[index + 1].StatusEnroll) {
                                           var $li = $("<li>").text("Ngày: " + formatDateTime(item.CreatedAt));
                                           $ul.append($li);
                                           $li = $("<li>").text("Chuyển từ: " + StatusEnroll[listHistory[index + 1].StatusEnroll] + ", Thành: " + StatusEnroll[item.StatusEnroll]);
+                                          $ul.append($li);
+                                          $li = $("<li>").text("Thay đổi bởi: " + infoSale);
                                           $ul.append($li);
                                           $ul.append("<hr>")
                                       }
@@ -154,7 +166,7 @@
                                             var $card = $('<div class="card bg-light">');
                                             var $row = $('<div class="row">');
                                             var $col = $('<div class="col-12">');
-                                            var $h6 = $('<h6>').text(lead.Name);
+                                            var $h6 = $('<h6>').text(lead.Name+'('+lead.Email+')');
                                             var $p = $('<p>').text('SDT: '+ lead.Phone);
                                             $('#confirm-body').empty().append($card.append($row.append($col.append($h6, $p))));
                                             $('#confirmModal').modal('show');
@@ -213,9 +225,10 @@
                                 nextColumn = null;
                                 removePlaceholder();
                             });
-                        
-                           
                         });
+                        $("#btnSearch").click(function() {
+                          getEnroll()       
+                        })
                     },
                     error: function (data) {
                         alert("something went wrong.");
@@ -223,7 +236,6 @@
                 });
             }
             getEnroll();
-           
         });
     </script>
 }
