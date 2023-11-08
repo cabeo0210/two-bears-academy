@@ -79,18 +79,14 @@ public class SalerController : Controller
             .Where(erroll => erroll.IsActive && !erroll.IsDeleted)
             .Include(erroll => erroll.Lead)
             .Where(erroll => erroll.UserId == id)
-            .Select(a => a.Lead);
-
-        foreach (var lead in allLead.Where(lead => data.Contains(lead)))
-        {
-            allLead.DistinctBy(l => l.LeadId == lead.LeadId);
-        }
-
-        ViewData["Leads"] = _mapper.Map<List<LeaderCrudViewModel>>(allLead);
+            .Select(a => a.Lead).OrderBy(x => x.CreatedAt).ToList();
         
-        data = data.OrderBy(x => x.CreatedAt);
+        var leadsNotEnroll = allLead.Where(lead => !data.Contains(lead)).ToList(); // Create a list to store leads for removal
 
-        var result = _mapper.Map<List<LeaderCrudViewModel>>(data.ToList());
+        ViewData["Leads"] = _mapper.Map<List<LeaderCrudViewModel>>(leadsNotEnroll);
+        
+
+        var result = _mapper.Map<List<LeaderCrudViewModel>>(data);
 
         return View(result);
     }
@@ -103,11 +99,6 @@ public class SalerController : Controller
                 && x.IsActive
                 && !x.IsDeleted
         );
-
-        // if (!string.IsNullOrEmpty(keyword))
-        // {
-        //     data = data.Where(x => EF.Functions.Like(x.Name!, $"%{keyword}%"));
-        // }
 
         data = data.OrderByDescending(x => x.CreatedAt);
         var result = _mapper.Map<List<UserViewModel>>(data.ToList());

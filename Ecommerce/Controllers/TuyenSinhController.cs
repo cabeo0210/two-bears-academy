@@ -61,19 +61,9 @@ public class TuyenSinhController : Controller
             .Include(e=>e.HistoryEnrolls)
             .FirstOrDefault();
         
-        var currentHis = new HistoryEnroll();
-        foreach (var history in enroll!.HistoryEnrolls)
+        HistoryEnroll currentHis;
+        foreach (var history in enroll!.HistoryEnrolls.Where(history => history.IsActive))
         {
-            if (history.IsActive && history.StatusEnroll!=model.StatusCode)
-            {
-                currentHis = _enrollRepository.GetHisEnrollById(history.HistoryEnrollId);
-                currentHis.IsActive = false;
-                currentHis.UpdatedAt = DateTime.Now;
-                _enrollRepository.UpdateHistoryEnroll(currentHis);
-                await _enrollRepository.CommitAsync();
-            }
-
-            if (history.StatusEnroll != model.StatusCode) continue;
             currentHis = _enrollRepository.GetHisEnrollById(history.HistoryEnrollId);
             currentHis.IsActive = false;
             currentHis.UpdatedAt = DateTime.Now;
