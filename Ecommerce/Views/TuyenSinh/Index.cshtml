@@ -156,7 +156,7 @@
                                             var $col = $('<div class="col-12">');
                                             var $h6 = $('<h6>').text(lead.Name);
                                             var $p = $('<p>').text('SDT: '+ lead.Phone);
-                                            $('#confirm-body').append($card.append($row.append($col.append($h6, $p))));
+                                            $('#confirm-body').empty().append($card.append($row.append($col.append($h6, $p))));
                                             $('#confirmModal').modal('show');
                                         }
                                     },
@@ -201,7 +201,6 @@
                                 currentColumn = null;
                                 nextColumn = null;
                                 $('#confirmModal').modal('hide');
-                                getEnroll();
                             })
                             
                         
