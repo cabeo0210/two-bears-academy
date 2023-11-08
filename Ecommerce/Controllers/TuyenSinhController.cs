@@ -29,7 +29,7 @@ public class TuyenSinhController : Controller
         return View();
     }
 
-    public IActionResult GetEnroll()
+    public IActionResult GetEnroll(string? keySearch)
     {
         var user = HttpContext.Session.GetCurrentAuthentication();
         var enroll = _enrollRepository
@@ -38,9 +38,21 @@ public class TuyenSinhController : Controller
             .Include(erroll => erroll.Lead)
             .Include(erroll => erroll.HistoryEnrolls)
             .Where(erroll => erroll.UserId == user.UserId).ToList();
+        if (keySearch != null)
+        {
+            enroll = enroll.Where(e =>
+                (
+                    (e.Lead.Name != null && e.Lead.Name.ToLower().Contains(keySearch.ToLower(), StringComparison.OrdinalIgnoreCase)) ||
+                    (e.Lead.Email != null && e.Lead.Email.Contains(keySearch, StringComparison.OrdinalIgnoreCase)) ||
+                    (e.Lead.Phone != null && e.Lead.Phone.Contains(keySearch, StringComparison.OrdinalIgnoreCase))
+                )
+            ).ToList();
+        }
+
         var result = _mapper.Map<List<EnrollViewModel>>(enroll);
-        
         return PartialView(result);
+
+
     }
 
     public async Task<IActionResult> UpdateEnrollHistory(EnrollUpdateModel model)
