@@ -21,7 +21,7 @@
     <div class="@SystemStyleCard.Card">
         <div class="@SystemStyleCard.CardBody">
             <div class="mb-2 mx-auto">
-                <form asp-action="Index">
+                <form asp-action="PCLead4Sale">
                     <div class="form-group row justify-content-center">
                         <div class="col-8 row justify-content-center mb-2">
                             <div class="col-8 " style="display:flex">
@@ -93,7 +93,7 @@
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
                         </div>
                         <div class="modal-body" id="warning-modal-body">
-                            Bạn có chắc muốn xóa sản phẩm này
+                            Bạn có chắc muốn xóa saler này ?
                         </div>
 
                         <div class="modal-footer">
@@ -143,20 +143,21 @@
         $("#warning-modal-confirm").click(function (e) {
             e.preventDefault();
             $("#modal-warning").modal("hide");
-            // $.ajax({
-            //     data: { id: id },
-            //     type: "POST",
-            //     dataType: "json",
-            //     url: '@Url.Action("")',
-            //     cache: false,
-            //     success: function (resp) {
-            //     },
-            //     error: function () {
-            //     },
-            //     complete: function () {
-            //         window.location.reload();
-            //     }
-            // });
+           $.ajax({
+               data: { id: id },
+               type: "POST",
+               dataType: "json",
+               url: '@Url.Action("Delete")',
+               cache: false,
+               success: function (resp) {
+                    // window.location.reload();
+               },
+               error: function () {
+               },
+               complete: function () {
+                   window.location.reload();
+               }
+           });
         });
     }
 

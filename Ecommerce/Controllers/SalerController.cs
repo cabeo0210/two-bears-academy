@@ -14,6 +14,7 @@ public class SalerController : Controller
 {
     private readonly UserRepository _userRepository;
     private readonly EnrollRepository _enrollRepository;
+    private readonly LeaderRepository _leaderRepository;
     private readonly IMapper _mapper;
     private EcommerceDbContext _dbContext;
 
@@ -23,6 +24,7 @@ public class SalerController : Controller
         _mapper = mapper;
         _userRepository = new UserRepository(_dbContext, _mapper);
         _enrollRepository = new EnrollRepository(_mapper, _dbContext);
+        _leaderRepository = new LeaderRepository(_mapper, _dbContext);
     }
 
     [HttpPost]
@@ -54,7 +56,18 @@ public class SalerController : Controller
         return Json("Oke");
     }
 
-    public IActionResult PCLead4Sale(int id)
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var leader = _leaderRepository.FirstOrDefault(x => x.LeadId == id);
+
+        leader.IsDeleted = true;
+        await _leaderRepository.CommitAsync();
+
+        return new JsonResult("OK");
+    }
+
+    public IActionResult PCLead4Sale(int id, string keyword)
     {
         ViewData["SalerName"] =
             _dbContext.Users.First(x =>
@@ -69,6 +82,7 @@ public class SalerController : Controller
                 && x.IsActive
                 && !x.IsDeleted
                 && x.UserId == id).UserId;
+
         var allLead = _dbContext.Leads.Where(
             x =>
                 x.ClaimUserId == null
@@ -79,19 +93,33 @@ public class SalerController : Controller
             .Where(erroll => erroll.IsActive && !erroll.IsDeleted)
             .Include(erroll => erroll.Lead)
             .Where(erroll => erroll.UserId == id)
-            .Select(a => a.Lead).OrderBy(x => x.CreatedAt).ToList();
-        
-        var leadsNotEnroll = allLead.Where(lead => !data.Contains(lead)).ToList(); // Create a list to store leads for removal
+            .Select(a => a.Lead)
+            .Where(l => !l.IsDeleted)
+            .OrderBy(x => x.CreatedAt)
+            .ToList();
+
+        var leadsNotEnroll =
+            allLead.Where(lead => !data.Contains(lead)).ToList(); // Create a list to store leads for removal
 
         ViewData["Leads"] = _mapper.Map<List<LeaderCrudViewModel>>(leadsNotEnroll);
-        
+
+        if (!string.IsNullOrEmpty(keyword))
+        {
+            // data = data.Where(x => EF.Functions.Like(x.Name!, $"%{keyword}%")).ToList();
+            data = data.Where(x =>
+                    x.Name.Contains($"{keyword}") ||
+                    x.Email.Contains($"{keyword}") ||
+                    x.Phone.Contains($"{keyword}") ||
+                    x.LeadId.ToString().Contains($"{keyword}"))
+                .ToList();
+        }
 
         var result = _mapper.Map<List<LeaderCrudViewModel>>(data);
 
         return View(result);
     }
 
-    public IActionResult Index(string keyword)
+    public IActionResult Index()
     {
         var data = _dbContext.Users.Where(
             x =>

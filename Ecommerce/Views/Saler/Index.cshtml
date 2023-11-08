@@ -99,7 +99,7 @@
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
                         </div>
                         <div class="modal-body" id="warning-modal-body">
-                            Bạn có chắc muốn xóa sản phẩm này
+                            Bạn có chắc muốn xóa saler này ?
                         </div>
 
                         <div class="modal-footer">
@@ -123,7 +123,6 @@
                 <div class="modal-body" id="status-modal-body">
                     Bạn có chắc muốn thay đổi trạng thái sản phẩm này
                 </div>
-
                 <div class="modal-footer">
                     <button class="btn btn-secondary" id="status-modal-cancel" type="button" data-bs-dismiss="modal" data-bs-original-title="" title="">Đóng</button>
                     <button class="btn btn-primary" id="status-modal-confirm" type="button" data-bs-original-title="" title="">Xác nhận</button>
@@ -138,13 +137,15 @@
         $("#warning-modal-confirm").click(function (e) {
             e.preventDefault();
             $("#modal-warning").modal("hide");
+            
             // $.ajax({
             //     data: { id: id },
             //     type: "POST",
             //     dataType: "json",
-            //     url: '@Url.Action("")',
+            //     url: '@Url.Action("Delete")',
             //     cache: false,
             //     success: function (resp) {
+            //          window.location.reload();
             //     },
             //     error: function () {
             //     },

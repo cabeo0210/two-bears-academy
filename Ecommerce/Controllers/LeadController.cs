@@ -111,7 +111,10 @@ public class LeadController : Controller
 
         if (!string.IsNullOrEmpty(keyword))
         {
-            data = data.Where(x => EF.Functions.Like(x.Name!, $"%{keyword}%"));
+            data = data.Where(x => EF.Functions.Like(x.Name!, $"%{keyword}%") ||
+                                   EF.Functions.Like(x.Email!, $"%{keyword}%") ||
+                                   EF.Functions.Like(x.Phone!, $"%{keyword}%") ||
+                                   EF.Functions.Like(x.LeadId.ToString()!, $"%{keyword}%"));
         }
 
         data = data.OrderByDescending(x => x.CreatedAt);
