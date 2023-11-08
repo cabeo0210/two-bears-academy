@@ -69,6 +69,7 @@ public class SalerController : Controller
                 && x.IsActive
                 && !x.IsDeleted
                 && x.UserId == id).UserId;
+
         var allLead = _dbContext.Leads.Where(
             x =>
                 x.ClaimUserId == null
@@ -81,13 +82,13 @@ public class SalerController : Controller
             .Where(erroll => erroll.UserId == id)
             .Select(a => a.Lead);
 
-        foreach (var lead in allLead.Where(lead => data.Contains(lead)))
+        foreach (var lead in data)
         {
-            allLead.DistinctBy(l => l.LeadId == lead.LeadId);
+            allLead.Remove(lead);
         }
 
         ViewData["Leads"] = _mapper.Map<List<LeaderCrudViewModel>>(allLead);
-        
+
         data = data.OrderBy(x => x.CreatedAt);
 
         var result = _mapper.Map<List<LeaderCrudViewModel>>(data.ToList());
