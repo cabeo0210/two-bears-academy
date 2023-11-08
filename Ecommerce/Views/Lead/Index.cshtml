@@ -80,7 +80,16 @@
                             <td>@item.Email</td>
                             <td>@item.Phone</td>
                             <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
-                            <td></td>
+                            <td>
+                                @if (item.IsActive)
+                                {
+                                    <i data-feather="check"></i>
+                                }
+                                else
+                                {
+                                    <i data-feather="x"></i>
+                                }
+                            </td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.LeadId">
                                     <i data-feather="edit"></i>

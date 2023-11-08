@@ -23,10 +23,6 @@ public class TuyenSinhController : Controller
         _enrollRepository = new EnrollRepository(_mapper, _dbContext);
         
     }
-    public IActionResult Sale()
-    {
-        return View();
-    }
     
     public IActionResult Index()
     {
