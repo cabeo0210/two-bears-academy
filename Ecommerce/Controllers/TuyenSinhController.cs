@@ -23,10 +23,6 @@ public class TuyenSinhController : Controller
         _enrollRepository = new EnrollRepository(_mapper, _dbContext);
         
     }
-    public IActionResult Sale()
-    {
-        return View();
-    }
     
     public IActionResult Index()
     {
@@ -54,7 +50,6 @@ public class TuyenSinhController : Controller
         }
 
         var result = _mapper.Map<List<EnrollViewModel>>(enroll);
-
         return PartialView(result);
 
 
@@ -65,6 +60,7 @@ public class TuyenSinhController : Controller
         var enroll = _enrollRepository.Where(e=>e.EnrollId==model.EnrollId)
             .Include(e=>e.HistoryEnrolls)
             .FirstOrDefault();
+        
         var currentHis = new HistoryEnroll();
         foreach (var history in enroll!.HistoryEnrolls)
         {

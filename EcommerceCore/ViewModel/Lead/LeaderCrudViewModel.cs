@@ -2,7 +2,7 @@
 
 namespace EcommerceCore.ViewModel.Tuyen;
 
-public class LeaderCrudViewModel : Lead
+public class LeaderCrudViewModel : BaseLead
 {
 
 }
