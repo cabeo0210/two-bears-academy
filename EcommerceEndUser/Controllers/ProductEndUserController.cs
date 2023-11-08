@@ -194,7 +194,6 @@ namespace Ecommerce.EndUser.Controllers
                         Type = (int)SysEnum.ProductFeedbackType.Rating,
                         IsActive = true,
                         Content = content,
-
                     };
                     _productFeedbackRepository.Add(productFeedback);
                     await _productRepository.CommitAsync();

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ecommerce.Repositories;
+using EcommerceCore.Const;
 using EcommerceCore.Models;
 using EcommerceCore.ViewModel.Tuyen;
 using Microsoft.AspNetCore.Mvc;
@@ -86,6 +87,7 @@ public class LeadController : Controller
         try
         {
             leaderCrudViewModel.IsActive = true;
+            leaderCrudViewModel.Position = SysEnum.LeadPosition.Lead.ToString();
             _leaderRepository.Add(leaderCrudViewModel);
             await _leaderRepository.CommitAsync();
 

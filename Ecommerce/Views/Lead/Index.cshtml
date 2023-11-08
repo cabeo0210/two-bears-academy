@@ -81,14 +81,16 @@
                             <td>@item.Phone</td>
                             <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
                             <td>
-                                @if (item.IsActive)
-                                {
-                                    <i data-feather="check"></i>
-                                }
-                                else
-                                {
-                                    <i data-feather="x"></i>
-                                }
+                                <p class="d-flex justify-content-center">
+                                    @if (item.IsActive)
+                                    {
+                                        <i data-feather="check"></i>
+                                    }
+                                    else
+                                    {
+                                        <i data-feather="x"></i>
+                                    }
+                                </p>
                             </td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.LeadId">

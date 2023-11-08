@@ -118,7 +118,6 @@ namespace EcommerceCore.Const
         {
             [Display(Name = "Lead")]
             Lead = 0,
-            
         }
     }
 }

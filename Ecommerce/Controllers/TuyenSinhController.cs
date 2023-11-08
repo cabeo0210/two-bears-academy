@@ -39,6 +39,7 @@ public class TuyenSinhController : Controller
             .Include(erroll => erroll.HistoryEnrolls)
             .Where(erroll => erroll.UserId == user.UserId).ToList();
         var result = _mapper.Map<List<EnrollViewModel>>(enroll);
+        
         return PartialView(result);
     }
 
@@ -47,6 +48,7 @@ public class TuyenSinhController : Controller
         var enroll = _enrollRepository.Where(e=>e.EnrollId==model.EnrollId)
             .Include(e=>e.HistoryEnrolls)
             .FirstOrDefault();
+        
         var currentHis = new HistoryEnroll();
         foreach (var history in enroll!.HistoryEnrolls)
         {
