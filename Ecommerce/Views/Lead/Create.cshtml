@@ -1,0 +1,86 @@
+﻿@model EcommerceCore.ViewModel.Tuyen.LeaderCrudViewModel
+
+@{
+    ViewData["Title"] = "Thông tin liên hệ mới";
+}
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="@SystemStyleCard.Card">
+        <div class="@SystemStyleCard.CardHeader bg-primary py-3">
+            <h4 class="mb-0">@ViewData["Title"]</h4>
+        </div>
+        <div class="@SystemStyleCard.CardBody">
+            <div class="@SystemStyleForm.ThemeForm">
+                <div class="mb-3">
+                    <label>
+                        Tên
+                        <span class="text-danger">
+                            <b>(*)</b>
+                        </span>
+                    </label>
+                    <input class="form-control username" type="text" asp-for="Name"/>
+                    <span>
+                        <span asp-validation-for="Name" class="@SystemText.TextDanger"></span>
+                        <span class="text-muted float-end">
+                            <i><span class="signs-number"></span>/200 ký tự</i>
+                        </span>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label>
+                        Email
+                        <span class="text-danger">
+                            <b>(*)</b>
+                        </span>
+                    </label>
+                    <input class="form-control" type="email" asp-for="Email"/>
+                    <span>
+                        <span asp-validation-for="Email" class="@SystemText.TextDanger float-start"></span>
+                        <span class="text-muted float-end signs-number">
+                            <i>11/20 ký tự</i>
+                        </span>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label>
+                        Mật khẩu
+                        <span class="text-danger">
+                            <b>(*)</b>
+                        </span>
+                    </label>
+                    <input class="form-control" type="password" asp-for="Password"/>
+                    <span asp-validation-for="Password" class="@SystemText.TextDanger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>Số điện thoại</label>
+                    <input class="form-control" type="tel" asp-for="Phone"/>
+                    <span asp-validation-for="Phone" class="@SystemText.TextDanger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>Chọn chức vụ</label>
+                    <select class="form-select" asp-for="Position" asp-items="Html.GetEnumSelectList<SysEnum.LeadPosition>()">
+                        <option selected="selected" value="">Chọn chức vụ</option>
+                    </select>
+                    <span asp-validation-for="Position" class="@SystemText.TextDanger"></span>
+                </div>
+                <div class="mb-3">
+                    <label> Mô tả <i>(Notes)</i></label>
+                    <textarea class="form-control not-apply" type="text" asp-for="Note">  </textarea>
+                    <span asp-validation-for="Note" class="@SystemText.TextDanger"></span>
+                </div>
+                <div class="mb-3">
+                    <label> Nguồn (Nguồn tìm thấy liên hệ mới này)</label> <br/>
+                    <small id="srcHelp" class="form-text text-muted">
+                        <i>Ví dụ: facebook, zalo, telegram, linkedin,..</i>
+                    </small>
+                    <input class="form-control" type="text" asp-for="Source"/>
+                    <span asp-validation-for="Source" class="@SystemText.TextDanger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="@SystemStyleForm.ThemeFooter">
+        <button type="submit" class="btn btn-rounded btn-success">Lưu</button>
+        <a class="btn btn-rounded btn-danger" href="@Url.Action("Index")">Trở về</a>
+    </div>
+</form>

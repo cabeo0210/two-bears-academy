@@ -205,10 +205,10 @@ namespace Ecommerce.EndUser.Controllers
             var result = _mapper.Map<List<ProductViewModel>>(data.ToList());
             return View(result);
         }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        // public IActionResult Privacy()
+        // {
+        //     return View();
+        // }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

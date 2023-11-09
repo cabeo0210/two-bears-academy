@@ -22,7 +22,6 @@ namespace Ecommerce.Controllers
 
     public class UserController : Controller
     {
-
         private readonly IHttpContextAccessor _httpContextAccessor;
         private EcommerceDbContext _dbContext;
         private UserRepository _userRepository;
@@ -53,27 +52,27 @@ namespace Ecommerce.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        public IActionResult TermAndCondition()
-        {
-            return View();
-        }
-        public IActionResult Test()
-        {
-            _userRepository.Add(new UserCrudModel
-            {
-                Name = "hehe",
-                Password = "12456",
-                Email = "abc@gmail.com",
-                Phone = "091494452",
-            });
-
-            return View();
-        }
+        // public IActionResult Privacy()
+        // {
+        //     return View();
+        // }
+        //
+        // public IActionResult TermAndCondition()
+        // {
+        //     return View();
+        // }
+        // public IActionResult Test()
+        // {
+        //     _userRepository.Add(new UserCrudModel
+        //     {
+        //         Name = "hehe",
+        //         Password = "12456",
+        //         Email = "abc@gmail.com",
+        //         Phone = "091494452",
+        //     });
+        //
+        //     return View();
+        // }
 
         [HttpPost]
         public ActionResult Login(LoginViewModel loginModel)
@@ -114,7 +113,7 @@ namespace Ecommerce.Controllers
             .FirstOrDefaultAsync(
                x => x.Email!.Trim().ToLower() == loginModel.Email!.Trim().ToLower()
                && x.Password == loginModel.Password
-               && x.Role == (int)SysEnum.Role.Admin
+               && (x.Role == (int)SysEnum.Role.Admin||x.Role == (int)SysEnum.Role.Sale)
                && x.IsActive
                && !x.IsDeleted
             ).Result;
@@ -137,6 +136,7 @@ namespace Ecommerce.Controllers
                 Name = user.Name,
                 UserGuid = user.UserGuid,
                 UserId = user.UserId,
+                Role = user.Role,
                 AvatarUrl = string.IsNullOrEmpty(user.Avatar) ? "/img/no-avatar.png" : user.Avatar,
                 Email = user.Email,
                 Phone = user.Phone,

@@ -7,11 +7,7 @@ namespace Ecommerce
 {
     public class EcommerceDbContext : DbContext
     {
-        public EcommerceDbContext()
-        {
-
-        }
-
+      
         public EcommerceDbContext(DbContextOptions<EcommerceDbContext> options) : base(options)
         {
 
@@ -40,5 +36,8 @@ namespace Ecommerce
         public DbSet<Setting> Settings { get; set; }
         public DbSet<New> News { get; set; }
         public DbSet<ProductHistory> ProductHistories { get; set; }
+        public DbSet<Lead> Leads { get; set; }
+        public DbSet<Enroll> Enrolls { get; set; }
+        public DbSet<HistoryEnroll> HistoryEnrolls { get; set; }
     }
 }

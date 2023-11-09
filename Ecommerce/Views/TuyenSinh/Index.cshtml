@@ -1,0 +1,241 @@
+﻿@using EcommerceCore
+<style>
+    .column {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+        height: auto;
+    }
+    .card {
+        margin: 10px;
+        padding: 10px;
+        cursor: move;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        color: black;
+    }
+    .ui-sortable-helper {
+        opacity: 0.5;
+    }
+</style>
+
+<div id="myKanbanBoard">
+
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+           function formatDateTime(inputDateTime) {
+               // Parse the input date-time string
+               const date = new Date(inputDateTime);
+           
+               // Get day, month, year, hours, minutes, and seconds components
+               const day = date.getDate();
+               const month = date.getMonth() + 1; // Month is zero-based, so add 1
+               const year = date.getFullYear();
+               const hours = date.getHours();
+               const minutes = date.getMinutes();
+               const seconds = date.getSeconds();
+           
+               // Ensure that single-digit day, month, hours, minutes, and seconds are formatted with leading zeros
+               const formattedDay = String(day).padStart(2, '0');
+               const formattedMonth = String(month).padStart(2, '0');
+               const formattedHours = String(hours).padStart(2, '0');
+               const formattedMinutes = String(minutes).padStart(2, '0');
+               const formattedSeconds = String(seconds).padStart(2, '0');
+           
+               // Assemble the formatted date-time string "dd/mm/yyyy - hh:mm:ss"
+               const formattedDateTime = `${formattedDay}/${formattedMonth}/${year} - ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+           
+               return formattedDateTime;
+           }
+            function getEnroll() {
+                const keySearch = $("#keySearch").val();
+                const dataSearch = {keySearch:keySearch}
+                $.ajax({
+                    url: '@Url.Action("GetEnroll", "TuyenSinh")',
+                    type: "GET",
+                    data: dataSearch,
+                    success: function (data) {
+                        $("#myKanbanBoard").html(data);
+                        if (keySearch!=null){
+                            $("#keySearch").val(keySearch);
+                        }
+                        $(document).ready(function () {
+                             $(".show-history").click(function (){
+                                  const StatusEnroll = {
+                                     0: "Đăng ký",
+                                     1: "Cọc giữ chỗ",
+                                     2: "Đóng học phí",
+                                     3: "Trả cọc chưa có lớp",
+                                     4: "Chuyển lớp khác"
+                                 };
+                                const data = $(this).attr("data");
+                                const infoLead = $(this).attr("data-lead");
+                                const infoSale = $(this).attr("data-sale");
+                                const listHistory = JSON.parse(data); 
+                                const $contentDiv = $("#content-history");
+                                const $contentHead = $("#showHistoryModalLabel");
+                                var $liHead = $("<p>").text("Lịch sử thay đổi: "+infoLead);
+                                $contentHead.empty().append($liHead)
+                                const $ul = $("<ul>");
+                                $.each(listHistory, function(index, item) {
+                                      // Check if there's a next item in the list and if the status has changed
+                                      if (index < listHistory.length - 1 && item.StatusEnroll !== listHistory[index + 1].StatusEnroll) {
+                                          var $li = $("<li>").text("Ngày: " + formatDateTime(item.CreatedAt));
+                                          $ul.append($li);
+                                          $li = $("<li>").text("Chuyển từ: " + StatusEnroll[listHistory[index + 1].StatusEnroll] + ", Thành: " + StatusEnroll[item.StatusEnroll]);
+                                          $ul.append($li);
+                                          $li = $("<li>").text("Thay đổi bởi: " + infoSale);
+                                          $ul.append($li);
+                                          $ul.append("<hr>")
+                                      }
+                                });
+                                $contentDiv.empty().append($ul);
+                                $('#showHistoryModal').modal('show');
+                             })
+                            let curActiveMenu = $("#mainnav li a.link-nav.active");
+                            if (curActiveMenu.length) {
+                                let curActiveMenuPos = curActiveMenu.offset().top - (90);
+                                $("#mainnav .nav-menu").scrollTop(curActiveMenuPos);
+                            }
+                            $(".select2").select2();
+                            $('.select2-ajax').each(function () {
+                                let input = $(this);
+                                let url = input.data("ajax-url");
+                                if (!url) {
+                                    console.log("select2-ajax: lack of ajax-url data");
+                                    return;
+                                }
+                                input.select2({
+                                    //minimumResultsForSearch: Infinity,
+                                    ajax: {
+                                        url: url,
+                                        data: function (params) {
+                                            var query = {
+                                                keyword: params.term,
+                                                page: params.page || 1,
+                                            }
+                                            return query;
+                                        },
+                                        processResults: function (data, params) {
+                                            params.page = params.page || 1;
+                                            return {
+                                                'results': data.result,
+                                                'pagination': {
+                                                    'more': data.more,
+                                                }
+                                            };
+                                        },
+                                        delay: 500,
+                                    }
+                                });
+                            });
+                        });
+                        $(function () {
+                            let currentCard = null;
+                            let currentColumn = null;
+                            let nextColumn = null;
+                        
+                            $('.col-md')
+                                .sortable({
+                                    connectWith: '.col-md',
+                                    items: '.card',
+                                    placeholder: 'sortable-placeholder',
+                                    start: function (e, ui) {
+                                        currentCard = ui.item;
+                                        currentColumn = ui.item.parent();
+                                    },
+                                    change: function (e, ui) {
+                                        nextColumn = ui.placeholder.parent();
+                                    },
+                                    over: function (e, ui) {
+                                        $(this).css('border-color', 'yellow');
+                                    },
+                                    out: function (e, ui) {
+                                        $(this).css('border-color', '#ccc'); 
+                                    },
+                                    beforeStop: function (e, ui) {
+                                        if (nextColumn && nextColumn[0] !== currentColumn[0]) {
+                                            e.preventDefault();
+                                            const data = $(currentCard).attr("lead");
+                                            const lead = JSON.parse(data);
+                                            // Select the elements you want to append
+                                            var $card = $('<div class="card bg-light">');
+                                            var $row = $('<div class="row">');
+                                            var $col = $('<div class="col-12">');
+                                            var $h6 = $('<h6>').text(lead.Name+'('+lead.Email+')');
+                                            var $p = $('<p>').text('SDT: '+ lead.Phone);
+                                            $('#confirm-body').empty().append($card.append($row.append($col.append($h6, $p))));
+                                            $('#confirmModal').modal('show');
+                                        }
+                                    },
+                                })
+                                .disableSelection();
+                            function removePlaceholder() {
+                                $('.sortable-placeholder').remove();
+                            }
+                            $('#confirmButton').click(function () {
+                                const id = $(currentCard).attr("id");
+                                const enrollId = $(currentCard).attr("enroll-id");
+                                
+                                if (currentCard && nextColumn) {
+                                    nextColumn.append(currentCard);
+                                    nextColumn.css('border-color', '#ccc'); // Reset to original color after drop
+                                }
+                                const statusCode = $(currentCard).parent().find("h5").attr("id");
+                                currentCard = null;
+                                currentColumn = null;
+                                nextColumn = null;
+                                $('#confirmModal').modal('hide');
+                                removePlaceholder();
+                                $.ajax({
+                                        type: "GET",
+                                        url: "/TuyenSinh/UpdateEnrollHistory",
+                                        data: {
+                                              LeadId: id,
+                                              EnrollId: enrollId,
+                                              StatusCode: statusCode
+                                        }, // Convert data to JSON format
+                                        success: function(response) {
+                                          getEnroll();
+                                        },
+                                        error: function(err) {
+                                          // Handle errors, if any
+                                          console.error("Error:", err);
+                                        }
+                                      });
+                            });
+                            $('#confirmClose').click(function () {
+                                currentCard = null;
+                                currentColumn = null;
+                                nextColumn = null;
+                                $('#confirmModal').modal('hide');
+                            })
+                            
+                        
+                            $('#confirmModal').on('hide.bs.modal', function (e) {
+                                if (!e.relatedTarget && currentCard && currentColumn) {
+                                    currentColumn.append(currentCard);
+                                }
+                                currentCard = null;
+                                currentColumn = null;
+                                nextColumn = null;
+                                removePlaceholder();
+                            });
+                        });
+                        $("#btnSearch").click(function() {
+                          getEnroll()       
+                        })
+                    },
+                    error: function (data) {
+                        alert("something went wrong.");
+                    }
+                });
+            }
+            getEnroll();
+        });
+    </script>
+}

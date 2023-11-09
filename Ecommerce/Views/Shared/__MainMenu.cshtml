@@ -1,4 +1,9 @@
-﻿<header class="main-nav">
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+@{ 
+    var authenticationModel = HttpContextAccessor.HttpContext.Session.GetCurrentAuthentication() ;
+}
+<header class="main-nav">
     <nav>
         <div class="main-navbar">
             <div id="mainnav">
@@ -8,39 +13,40 @@
                             <span>Back</span>
                         </div>
                     </li>
-
-                    <li class="sidebar-main-title" style="overflow:auto">
+                    @if (authenticationModel.Role == (int)SysEnum.Role.Admin)
+                    {
+                          <li class="sidebar-main-title" style="overflow:auto">
                         <div>
                             <h6>Quản lý người dùng</h6>
                         </div>
                     </li>
                     <li>
                         <a class="nav-link menu-title link-nav"
-                            asp-controller="EndUser" asp-action="Index" >
+                           asp-controller="EndUser" asp-action="Index">
                             @*<i class="@controller.ClassIconName me-2"></i>*@
                             Quản lý tài khoản
                         </a>
                     </li>
-                     <li class="sidebar-main-title" style="overflow:auto">
+                    <li class="sidebar-main-title" style="overflow:auto">
                         <div>
                             <h6>Quản lý danh mục</h6>
                         </div>
                     </li>
                     <li>
                         <a class="nav-link menu-title link-nav"
-                            asp-controller="Category" asp-action="Index" >
+                           asp-controller="Category" asp-action="Index">
                             @*<i class="@controller.ClassIconName me-2"></i>*@
                             Quản lý danh mục
                         </a>
                     </li>
-                     <li class="sidebar-main-title" style="overflow:auto">
+                    <li class="sidebar-main-title" style="overflow:auto">
                         <div>
                             <h6>Quản lý sản phẩm</h6>
                         </div>
                     </li>
                     <li>
                         <a class="nav-link menu-title link-nav"
-                            asp-controller="Product" asp-action="Index" >
+                           asp-controller="Product" asp-action="Index">
                             @*<i class="@controller.ClassIconName me-2"></i>*@
                             Quản lý sản phẩm
                         </a>
@@ -56,7 +62,33 @@
                             @*<i class="@controller.ClassIconName me-2"></i>*@
                             Quản lý đơn hàng
                         </a>
-                    </li> 
+                    </li>
+                    <li class="sidebar-main-title" style="overflow:auto">
+                        <div>
+                            <h6>Tuyển sinh</h6>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link menu-title link-nav"
+                           asp-controller="Saler" asp-action="Index">
+                            @*<i class="@controller.ClassIconName me-2"></i>*@
+                            Quản lý sale
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link menu-title link-nav"
+                           asp-controller="TuyenSinh" asp-action="Index">
+                            @*<i class="@controller.ClassIconName me-2"></i>*@
+                            Quản lý tuyển sinh
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link menu-title link-nav"
+                           asp-controller="Lead" asp-action="Index">
+                            @*<i class="@controller.ClassIconName me-2"></i>*@
+                            Quản lý lead
+                        </a>
+                    </li>
                     <li class="sidebar-main-title" style="overflow:auto">
                         <div>
                             <h6>Thống kê</h6>
@@ -69,42 +101,58 @@
                             Thống kê doanh thu
                         </a>
                     </li>
-                     <li class="sidebar-main-title" style="overflow:auto">
+                    <li class="sidebar-main-title" style="overflow:auto">
                         <div>
                             <h6>Quản lý khuyến mãi</h6>
                         </div>
                     </li>
-                       <li>
+                    <li>
                         <a class="nav-link menu-title link-nav"
                            asp-controller="Coupon" asp-action="Index">
                             @*<i class="@controller.ClassIconName me-2"></i>*@
                             Quản lý mã khuyến mãi
                         </a>
                     </li>
-                     <li class="sidebar-main-title" style="overflow:auto">
+                    <li class="sidebar-main-title" style="overflow:auto">
                         <div>
                             <h6>Quản lý thông tin thanh toán</h6>
                         </div>
                     </li>
-                       <li>
+                    <li>
                         <a class="nav-link menu-title link-nav"
                            asp-controller="Setting" asp-action="Index">
                             @*<i class="@controller.ClassIconName me-2"></i>*@
                             Quản lý thông tin thanh toán
                         </a>
                     </li>
-                             <li class="sidebar-main-title" style="overflow:auto">
+                    <li class="sidebar-main-title" style="overflow:auto">
                         <div>
                             <h6>Quản lý tin tức</h6>
                         </div>
                     </li>
-                       <li>
+                    <li>
                         <a class="nav-link menu-title link-nav"
                            asp-controller="New" asp-action="Index">
                             @*<i class="@controller.ClassIconName me-2"></i>*@
                             Quản lý tin tức
                         </a>
                     </li>
+                    }
+                    @if (authenticationModel.Role == (int)SysEnum.Role.Sale)
+                    {
+                        <li class="sidebar-main-title" style="overflow:auto">
+                            <div>
+                                <h6>Tuyển sinh</h6>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="nav-link menu-title link-nav"
+                               asp-controller="TuyenSinh" asp-action="Index">
+                                @*<i class="@controller.ClassIconName me-2"></i>*@
+                                Quản lý tuyển sinh
+                            </a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>

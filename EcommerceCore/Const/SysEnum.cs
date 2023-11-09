@@ -26,6 +26,21 @@ namespace EcommerceCore.Const
             Staff = 1,
             [Display(Name = "EndUser")]
             EndUser = 2,
+            [Display(Name = "Sale")]
+            Sale = 3
+        }
+        public enum StatusEnroll
+        {
+            [Display(Name = "Đăng ký")]
+            Register = 0,
+            [Display(Name = "Cọc giữ chỗ")]
+            Deposit = 1,
+            [Display(Name = "Đóng học phí")]
+            Tuition = 2,
+            [Display(Name = "Trả cọc chưa có lớp ")]
+            ReturnTuition = 3,
+            [Display(Name = "Chuyển lớp khác")]
+            ChangeClass = 4
         }
         public enum ProductStatus
         {
@@ -97,6 +112,12 @@ namespace EcommerceCore.Const
             Content = 0,
             [Display(Name = "Rating")]
             Rating = 1,
+        }
+        
+        public enum LeadPosition
+        {
+            [Display(Name = "Lead")]
+            Lead = 0,
         }
     }
 }

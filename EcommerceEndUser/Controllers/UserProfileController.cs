@@ -88,12 +88,12 @@ namespace Ecommerce.EndUser.Controllers
             return RedirectToAction("Login", "HomeEndUser");
         }
 
-        public IActionResult Edit(int id)
-        {
-            var data = _userRepository.FirstOrDefault(x => x.UserId == id);
-            var result = _mapper.Map<UserCrudModel>(data);
-            return View(result);
-        }
+        // public IActionResult Edit(int id)
+        // {
+        //     var data = _userRepository.FirstOrDefault(x => x.UserId == id);
+        //     var result = _mapper.Map<UserCrudModel>(data);
+        //     return View(result);
+        // }
 
         [HttpPost]
         public async Task<IActionResult> Edit(UserCrudModel model)

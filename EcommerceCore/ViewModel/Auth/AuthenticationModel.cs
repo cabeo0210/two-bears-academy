@@ -8,6 +8,7 @@ namespace Ecommrece.ViewModel
     public class AuthenticationModel
     {
         public string Name { get; set; }
+        public int Role { get; set; }
         public int UserId { get; set; }
         public Guid UserGuid { get; set; }
         public string AvatarUrl { get; set; }

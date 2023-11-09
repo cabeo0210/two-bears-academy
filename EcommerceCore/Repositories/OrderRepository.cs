@@ -55,6 +55,7 @@ namespace Ecommerce.Repositories
         public IQueryable<Order> BuildQuery(Expression<Func<Order, bool>> predicate)
         {
             IQueryable<Order> set = _context.Set<Order>();
+            
             return set.Where(predicate);
         }
 
