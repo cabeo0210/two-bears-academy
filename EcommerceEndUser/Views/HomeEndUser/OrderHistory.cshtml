@@ -1,49 +1,56 @@
 ﻿@model IEnumerable<EcommerceCore.ViewModel.Order.OrderViewModel>
 <div class="container-fluid">
-<div class="row">
-    <div class="col-sm-12">
-    <div class="card">
-        <div class="card-header pb-0">
-        <h5>Order history</h5>
-        </div>
-        <div class="card-body">
-        <div class="order-history ">
-            <div id="basic-1_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="basic-1_length"></div><table class="table table-bordernone display dataTable no-footer" id="basic-1" role="grid" aria-describedby="basic-1_info">
-            <thead>
-                <tr role="row"><th scope="col" class="sorting_asc" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Product: activate to sort column descending" style="width: 170px;">Order Code</th>
-                    <th scope="col" class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Product name: activate to sort column ascending" style="width: 170px;">Date of Purchase</th>
-                    <th scope="col" class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Units: activate to sort column ascending" style="width: 170px;">Order Product</th>
-                    <th scope="col" class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending" style="width: 170px;">Total</th>
-                    <th scope="col" class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending" style="width: 170px;">Order Status</th>
-            </thead>
-            <tbody>
-                @foreach (var order in Model)
-                {
-                    <tr role="row" class="odd">
-                    <td class="sorting_1"><a href="#">
-                        <p>@order.Code</p>
-                    </td>
-                    <td>
-                        <div class="product-name"><a href="#">@order.CreatedAt</a>
-                        @*<div class="order-process"><span class="order-process-circle"></span>Processing</div>*@
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <h5>Order history</h5>
+                </div>
+                <div class="card-body">
+                    <div class="order-history ">
+                        <div id="basic-1_wrapper" class="dataTables_wrapper no-footer">
+                            <div class="dataTables_length" id="basic-1_length"></div>
+                            <table class="table table-bordernone display dataTable no-footer" id="basic-1" role="grid" aria-describedby="basic-1_info">
+                                <thead>
+                                <tr role="row"><th scope="col" class="sorting_asc" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Product: activate to sort column descending" style="width: 170px;">Order Code</th>
+                                <th scope="col" class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Product name: activate to sort column ascending" style="width: 170px;">Date of Purchase</th>
+                                <th scope="col" class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Units: activate to sort column ascending" style="width: 170px;">Order Product</th>
+                                <th scope="col" class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending" style="width: 170px;">Total</th>
+                                <th scope="col" class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending" style="width: 170px;">Order Status</th>
+                                </thead>
+                                <tbody>
+                                @foreach (var order in Model)
+                                {
+                                    <tr role="row" class="odd">
+                                        <td class="sorting_1">
+                                            <a href="#">
+                                                <p>@order.Code</p>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div class="product-name">
+                                                <a href="#">@order.CreatedAt</a>
+                                                @*<div class="order-process"><span class="order-process-circle"></span>Processing</div>*@
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @foreach (var orderItem in order.OrderItems)
+                                            {
+                                                <div>
+                                                    <a href="@Url.Action("Index", "ProductEndUser", new { id = orderItem.ProductId })">@orderItem.Product.Name</a>
+                                                </div>
+                                            }
+                                        </td>
+                                        <td>@order.Total.ConvertToVND()</td>
+                                        <td>@order.OrderStatusDisplay</td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
                         </div>
-                    </td>
-                    <td>
-                        @foreach(var orderItem in order.OrderItems)
-                        {
-                          <div><a href="@Url.Action("Index", "ProductEndUser", new {id = orderItem.ProductId})">@orderItem.Product.Name</a></div>
-                        }
-                    </td>
-                    <td>@order.Total.ConvertToVND()</td>
-                    <td>@order.OrderStatusDisplay</td>
-                    </tr> 
-                }           
-                </tbody>
-            </table>
-</div>
-        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    </div>
-</div>
 </div>
