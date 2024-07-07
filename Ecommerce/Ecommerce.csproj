@@ -33,4 +33,34 @@
     <ProjectReference Include="..\EcommerceCore\EcommerceCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\New\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\New\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\New\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\New\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Order\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Order\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Order\Update.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Product\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Product\CreateProductImages.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Product\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Product\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Product\EditProductImages.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Product\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Product\ProductImages.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Report\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Setting\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Setting\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Setting\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Setting\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Coupon\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Coupon\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Coupon\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Coupon\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Category\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Category\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Category\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Category\Index.cshtml" />
+  </ItemGroup>
+
 </Project>

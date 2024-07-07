@@ -105,7 +105,7 @@ namespace Ecommerce.Controllers
         public IActionResult Error(string errorMessage)
         {
             ViewData["ErrorMessage"] = errorMessage;
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
         private AuthenticationModel LoginValid(LoginViewModel loginModel)
         {

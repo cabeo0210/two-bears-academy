@@ -26,7 +26,6 @@ using System.Text;
 using System.Net;
 using EcommerceCore.ViewModel.User;
 using Ecommerce.Repositories;
-using EcommerceCore.ViewModel.Product;
 using EcommerceCore;
 
 namespace Ecommerce.Controllers
@@ -71,54 +70,18 @@ namespace Ecommerce.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(UserCrudModel model)
         {
-            var errorModel = new ErrorViewModel();
             try
             {
 
-                if (model.Email != null)
-                {
-                    var checkExistUser = _userRepository.FirstOrDefault(x => x.Email!.Trim().ToLower() == model.Email.Trim().ToLower() && !x.IsDeleted);
-                    if (checkExistUser != null)
-                    {
-                        throw new Exception("Email này đã tồn tại!");
-                    }
+               // TODO
+                return View(model);
 
-                }
-                if (ModelState.IsValid)
-                {
-                    User user = new()
-                    {
-                        Email = model.Email!.Trim().ToLower(),
-                        Name = model.Name!.Trim(),
-                        DateOfBirth = model.DateOfBirth,
-                        Gender = model.Gender,
-                        Phone = model.Phone,
-                        Password = model.Password!.Hash(),
-                        Role = (int)SysEnum.Role.EndUser,
-                        IsActive = true,
-                        IsDeleted = false,
-                        CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now,
-                    };
-                    var data = _mapper.Map<UserCrudModel>(user);
-                    var uploadResult = await UploadFileToCloud(ufile: model.FileImage);
-                    data.Avatar = uploadResult;
-                    _userRepository.Add(data);
-                    await _userRepository.CommitAsync();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    //errorModel.ErrorMessage = "Lỗi khi tạo tài khoản";
-                    return View(model);
-                }
 
 
             }
             catch (Exception ex)
             {
-                errorModel.ErrorMessage = "Lỗi khi tạo tài khoản";
-                return View("Error", errorModel);
+                return View("Error", "Lỗi khi tạo tài khoản");
             }
 
         }
@@ -132,52 +95,14 @@ namespace Ecommerce.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UserCrudModel model)
         {
-            var errorModel = new ErrorViewModel();
             try
             {
-                if (ModelState.IsValid)
-                {
-                    if (model.Email != null)
-                    {
-                        var curUser = _userRepository.FirstOrDefault(x => x.UserId == model.UserId);
-                        if (curUser != null)
-                        {
-                            // Hok cho update Email => do email là unique
-                            // Nếu muốn check thì mở comment dưới này
-
-                            //var checkExistUser = _dbContext
-                            //.Users
-                            //.FirstOrDefault(
-                            //    x => x.Email!.Trim().ToLower() == model.Email.Trim().ToLower()
-                            //        && x.UserId != model.UserId);
-                            //if (checkExistUser != null)
-                            //{
-                            //    throw new Exception("Email này đã tồn tại!");
-                            //}
-
-                            curUser.Name = model.Name!.Trim();
-                            curUser.Gender = model.Gender;
-                            curUser.Phone = model.Phone;
-                            curUser.Password = model.Password!.Hash();
-                            curUser.DateOfBirth = model.DateOfBirth;
-                            curUser.UpdatedAt = DateTime.Now;
-
-                        }
-                        if (model.FileImage != null)
-                        {
-                            var uploadResult = await UploadFileToCloud(ufile: model.FileImage);
-                            curUser.Avatar = uploadResult;
-                        }
-                        await _userRepository.CommitAsync();
-                    }
-                }
+               // TODO
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                errorModel.ErrorMessage = "Lỗi khi tạo tài khoản";
-                return View("Error", errorModel);
-                //throw new Exception(ex.Message);
+                return View("Error",  "Lỗi khi tạo tài khoản");
             }
 
         }
@@ -191,7 +116,6 @@ namespace Ecommerce.Controllers
 
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var errorModel = new ErrorViewModel();
             try
             {
                 var data = _dbContext.Users.FirstOrDefault(x => x.UserId == id);
@@ -206,8 +130,7 @@ namespace Ecommerce.Controllers
             }
             catch (Exception ex)
             {
-                errorModel.ErrorMessage = "Lỗi khi tạo tài khoản";
-                return View("Error", errorModel);
+                return View("Error", ex.Message);
                 //throw new Exception(ex.Message);
             }
 
@@ -221,51 +144,6 @@ namespace Ecommerce.Controllers
             }
             await _userRepository.CommitAsync();
             return RedirectToAction("Index");
-        }
-
-        public async Task<IActionResult> ResetPassword(int id)
-        {
-            try
-            {
-                var user = _dbContext.Users.FirstOrDefault(x => x.UserId == id);
-                var webRoot = _env.WebRootPath;
-                var resetPassword = Path.Combine(webRoot, "template/reset_password.html");
-                var emailBody = System.IO.File.ReadAllText(resetPassword);
-                StringBuilder builder = new StringBuilder();
-                builder.Append(RandomNumber(1000, 999999));
-                emailBody = emailBody.Replace("{{newPassword}}", builder.ToString());
-                emailBody = emailBody.Replace("{{userName}}", user.Name);
-                var client = new SendGridClient(_sendgridApiKey);
-                var from_email = new EmailAddress(_senderEmail, _senderName);
-                var subject = "Thiết lập lại mật khẩu";
-                string receiverAddress = user.Email!.Trim();
-                var to_email = new EmailAddress(receiverAddress, receiverAddress);
-                var plainTextContent = emailBody;
-                var htmlContent = emailBody;
-                var msg = MailHelper.CreateSingleEmail(from_email, to_email, subject, plainTextContent, htmlContent);
-                var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
-                user.Password = builder.ToString().Hash();
-                await _dbContext.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            catch (Exception)
-            {
-                var errorModel = new ErrorViewModel();
-                errorModel.ErrorMessage = "Có lỗi xảy ra khi gửi mail";
-                return View("Error", errorModel);
-            }
-
-        }
-        private int RandomNumber(int min, int max)
-        {
-            // Random 6 số
-            Random random = new Random();
-            return random.Next(min, max);
-        }
-        private async Task<String> UploadFileToCloud(IFormFile ufile)
-        {
-            var image = UploadFile.AddPhoto(ufile, "user");
-            return image;
         }
     }
 }

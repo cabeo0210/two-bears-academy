@@ -22,7 +22,6 @@ namespace EcommerceCore.Configurations
                 UpdatedAt = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddTicks(0),
                 IsActive = true,
                 Avatar = "",
-                CartId = null,
                 IsDeleted = false,
                 Role = (int)SysEnum.Role.Admin,
                 Name = "XProfile Admin",

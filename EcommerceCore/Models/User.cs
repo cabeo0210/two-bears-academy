@@ -32,15 +32,8 @@ namespace EcommerceCore.Models
         public int Gender { get; set; }
         public int Role { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public string FcmToken { get; set; }
-        public Guid ResetPasswordGuid { get; set; }
-        public DateTime? LastLoginAt { get; set; }
-        public DateTime? JoinedAt { get; set; }
-        public int? CartId { get; set; }
     }
     public class User : BaseUser
     {
-        [ForeignKey(nameof(CartId))]
-        public Cart Cart { get; set; }
     }
 }

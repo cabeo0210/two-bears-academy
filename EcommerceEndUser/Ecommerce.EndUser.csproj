@@ -22,5 +22,20 @@
   <ItemGroup>
     <ProjectReference Include="..\EcommerceCore\EcommerceCore.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\HomeEndUser\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\HomeEndUser\Login.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\HomeEndUser\News.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\HomeEndUser\NewsDetail.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\HomeEndUser\OrderHistory.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\HomeEndUser\ProductDetail.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\HomeEndUser\Register.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\ProductEndUser\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\ProductEndUser\ProductHistory.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\ProductEndUser\_ProductFeedback.cshtml" />
+  </ItemGroup>
 
 </Project>
